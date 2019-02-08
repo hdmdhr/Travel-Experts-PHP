@@ -35,12 +35,12 @@ Please select your travelling ticket
       $i = 0;
       foreach ($packages as $pack) {
       print("<tr>");
-      print("<td>". $pack->getId() ."</td>");
-      print("<td>". $pack->getPkName() ."</td>");
-      print("<td>". $pack->getPkStartDate() ."</td>");
-      print("<td>". $pack->getPkEndDate() ."</td>");
-      print("<td>". $pack->getPkDesc() ."</td>");
-      print("<td>". $pack->getPkBasePrice() ."</td>");
+      print("<td class='tdpackage'>". $pack->getId() ."</td>");
+      print("<td class='tdpackage'>". $pack->getPkName() ."</td>");
+      print("<td class='tdpackage'>". $pack->getPkStartDate() ."</td>");
+      print("<td class='tdpackage'>". $pack->getPkEndDate() ."</td>");
+      print("<td class='tdpackage'>". $pack->getPkDesc() ."</td>");
+      print("<td class='tdpackage'>". $pack->getPkBasePrice() ."</td>");
 
       print("<td><img src=".$array1[$i]." class='packageImg'></td>");
       print("<td><a href='booking.php'><button class='btn btn-primary'>Order Now!</button></button>");
