@@ -207,6 +207,10 @@ input:focus::-webkit-input-placeholder,textarea:focus::-webkit-input-placeholder
   background-color: white;
 }
 
+.package-table {
+  width:60%;
+}
+
 .table thead th {
   border: 2px solid rgba(47, 79, 79, 0.7);
 }
