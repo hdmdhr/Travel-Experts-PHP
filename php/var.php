@@ -1,4 +1,12 @@
 <?php
+/**************************
+*
+* Author: DongMing Hu
+* Date: Feb. 11, 2019
+* Course: CPRG 210 PHP
+* Description: two saved arrays for future use
+*
+**************************/
 
 $var = array(
   'https://www.skydive.com.au/'=> "skydive Australia",
@@ -16,6 +24,5 @@ $agents = array(
   'AgtPosition' => 'Junior Agent',
   'AgencyId' => 2
 );
-
 
  ?>
