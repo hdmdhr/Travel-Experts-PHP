@@ -53,10 +53,16 @@ if(session_id() == '' || !isset($_SESSION)) {
       if ($_POST['Password'] === $userPinArray[$userId]) {
         // password match, save user-id into a session, head to agent entry page
         $_SESSION['user-id'] = $_POST['UserId'];
-        header("Location: http://localhost/CPRG-210-OSD-Assignment/new-agent.php");
-      } else { $errorMsg = "<h4 class='alert alert-danger'>Password or User ID do NOT match.</h4>"; }
-    } else { $errorMsg = "<h4 class='alert alert-danger'>User ID or Password do NOT match.</h4>"; }
-  }
+
+        // agents and users could use same login page but send you to different page.
+          header("Location: http://localhost/ThreadProj/customerpage.php");
+
+        //header("Location: http://localhost/CPRG-210-OSD-Assignment/new-agent.php");
+      } else { echo "<h2 class='alert alert-danger' role='alert'>Password or User ID do NOT match.</h2>"; }
+    } else { echo "<h2 class='alert alert-danger' role='alert'>User ID or Password do NOT match.</h2>"; }
+  } else { echo "No post received."; }
+
+
 
  ?>
 
@@ -81,6 +87,7 @@ if(session_id() == '' || !isset($_SESSION)) {
   <?php include_once('php/header.php') ?>
 
   <form class="form-signin mt-5" method="post" action="#">
+
     <?php
       if (isset($errorMsg)) {
         echo $errorMsg;
@@ -98,6 +105,7 @@ if(session_id() == '' || !isset($_SESSION)) {
       <label for="inputPassword">Password</label>
       <input type="password" id="inputPassword" class="form-control" name="Password" placeholder="Password" required>
     </div>
+
     <div class="checkbox mb-3">
       <label>
         <input type="checkbox" name="rememberMe" value="rememberMe"> Remember me
