@@ -197,3 +197,103 @@ if (title === 'Famous Spots') {
 
 
 }
+
+
+
+
+////////mahda-booking page////////////////////
+if (document.getElementById("bodybooking")){
+
+
+   var submitButton = document.getElementById("submitbtn");
+   var errorCName = document.getElementById("errorcname");
+   var errorCNum = document.getElementById("errorcnum");
+   var errorMonth = document.getElementById("errormonth");
+   var errorDate = document.getElementById("errordate");
+   var errorYear = document.getElementById("erroryear");
+   var errorCusid = document.getElementById("errorcusid");
+
+
+
+
+   submitButton.addEventListener("click", function(event) {////start of click function for validation form & submit
+
+    errorCName.style.display = "none";
+    errorCNum.style.display = "none";
+    errorMonth.style.display = "none";
+    errorDate.style.display = "none";
+    errorYear.style.display = "none";
+    errorCusid.style.display = "none";
+    correctcnum.style.display="none";
+    
+    
+    var CreditNumber = document.creditform.CCNumber.value;
+    var Month = document.creditform.month.value;
+    var Date = document.creditform.date.value;
+    var Year = document.creditform.year.value;
+    var CustId = document.creditform.CustomerId.value;
+
+
+   var radios = document.getElementsByName("CCName");  //// credit card name validation
+   if (!(radios[0].checked || radios[1].checked || radios[2].checked)){
+      event.preventDefault();
+      errorCName.style.display="block";
+      return false;
+  }
+ 
+
+   if (!CreditNumber){
+
+      event.preventDefault();
+      errorCNum.style.display="block";
+      return false;
+  }
+   if (!(CreditNumber.length==16)){      /////credit number format validation
+     event.preventDefault();
+     correctcnum.style.display="block";
+     return false;
+  }
+
+
+
+   var selectmonth = document.getElementById("month");  //// month validation
+   if (selectmonth.value==0){
+       event.preventDefault();
+       errorMonth.style.display="block";
+       return false;
+   }
+   
+   var selectdate = document.getElementById("date");  //// date validation
+   if (selectdate.value==0){
+       event.preventDefault();
+       errorDate.style.display ="block";
+       return false;
+   }
+
+   var selectyear = document.getElementById("year");  //// year validation
+   if (selectyear.value==0){
+       event.preventDefault();
+       errorYear.style.display="block";
+       return false;
+   }
+
+
+
+   if (!CustId ){
+
+   event.preventDefault();
+   errorCusid.style.display="block";
+   return false;
+  }
+
+
+
+
+});////end of click function for validation & submit
+
+
+
+
+
+
+  }///////////////////////// end of bodybooking

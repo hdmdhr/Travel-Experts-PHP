@@ -1,9 +1,27 @@
 <?php
+/**************************
+*
+* Author: DongMing Hu
+* Date: Feb. 11, 2019
+* Course: CPRG 210 PHP
+* Description: include three classes, Person, Agent, Customer.
+*
+**************************/
+
+
+/*---- Test area ----
+
+$test = new Agent('DongMing','Hu','780616-7477','1@2.com','Boss',2,'ASM');
+echo $test;
+
+----------------------*/
 
   class Agent extends Person {
+    // Note: for the generic insert object into database function to work, have to change the property visibility from protected to public
     public $midNameInit;
     public $postion;
     public $agencyId;
+    // static properties are for database insertion
     public static $fields = array('AgtMiddleInitial','AgtPosition','AgencyId','AgentId','AgtFirstName','AgtLastName','AgtBusPhone','AgtEmail');
     public static $fieldsType = 'ssiissss';
 
@@ -14,10 +32,16 @@
       $this->agencyId = $ai;
     }
 
+    function getMidName(){
+      return $this->$midNameInit;
+    }
+    function setMidName($newValue){
+      $this->$midNameInit = $newValue;
+    }
+
     function getPosition(){
       return $this->$postion;
     }
-
     function setPosition($newValue){
       $this->$postion = $newValue;
     }
@@ -25,29 +49,19 @@
     function getAgencyId(){
       return $this->$agentId;
     }
-
     function setAgencyId($newValue){
       $this->$agentId = $newValue;
     }
 
     function __toString(){
-      $propertiesArray = get_object_vars($this);
-
+      $propertiesArray = get_object_vars($this);  // will not get static property
       $str = implode(', ',$propertiesArray);
       return $str;
     }
   }
 
-  //---- Test area ----
-
-  $test = new Agent('DongMing','Hu','780616-7477','1@2.com','Boss',2,'ASM');
-  print_r(get_object_vars($test));
-  echo $test;
-
-  // ------------
-
   class person {
-    public $id;
+    public $id;   // this id property will only be assigned by database, it never gets constructed
     public $firstName;
     public $lastName;
     public $busPhone;
@@ -64,6 +78,41 @@
       return $this->firstName." ".$this->lastName;
     }
 
+    public function getId() {
+      return $this->id;
+    }
+    public function setId($id) {
+      $this->id = $id;
+    }
+
+    public function getFirstName() {
+      return $this->firstName;
+    }
+    public function setFirstName($fname) {
+      $this->firstName = $fname;
+    }
+
+    public function getLasttName() {
+      return $this->lastName;
+    }
+    public function setLastName($lname) {
+      $this->lastName = $lname;
+    }
+
+    public function getBusPhone() {
+      return $this->busPhone;
+    }
+    public function setBusPhone($bphone) {
+      $this->busPhone = $bphone;
+    }
+
+    public function getEmail() {
+      return $this->email;
+    }
+    public function setEmail($email) {
+      $this->email = $email;
+    }
+
   }
 
   /**
@@ -77,6 +126,9 @@
     public $country;
     public $homePhone;
     public $agentId;
+    public static $fields = array('CustAddress','CustCity','CustProv','CustPostal','CustCountry','CustHomePhone','AgentId','CustomerId','CustFirstName','CustLastName','CustBusPhone','CustEmail');
+    public static $fieldsType = 'ssssssiissss';
+
 
     function __construct($fName,$lName,$busP,$email,$add,$city,$prov,$post,$country,$homeP,$agtId) {
       parent::__construct($fName,$lName,$busP,$email);
@@ -90,6 +142,69 @@
     }
   }
 
+  class Package {
+    protected $id;
+		protected $PkName;
+		protected $PkStartDate;
+		protected $PkEndDate;
+		protected $PkDesc;
+		protected $PkBasePrice;
 
+		public function __construct($id,$PN, $PSD, $PED, $PD,$PBP){
+      $this->id = $id;
+      $this->PkName = $PN;
+			$this->PkStartDate = $PSD;
+			$this->PkEndDate = $PED;
+			$this->PkDesc = $PD;
+			$this->PkBasePrice = $PBP;
+		}
+
+		public function getId() {
+			return $this->id;
+		}
+
+		public function setId($id) {
+			$this->id = $id;
+    }
+
+		public function setPkName($PN) {
+			$this->PkName = $PN;
+		}
+
+		public function getPkName() {
+			return $this->PkName;
+		}
+
+		public function setPkStartDate($PSD) {
+			$this->PkStartDate = $PSD;
+		}
+
+		public function getPkStartDate() {
+			return $this->PkStartDate;
+		}
+
+		public function setPkEndDate($PED) {
+			$this->PkEndDate = $PED;
+		}
+
+		public function getPkEndDate() {
+			return $this->PkEndDate;
+		}
+
+		public function setPkDesc($PD) {
+			$this->PkDesc = $PD;
+		}
+
+		public function getPkDesc() {
+			return $this->PkDesc;
+    }
+    public function setPkBasePrice($PBP) {
+			$this->PkBasePrice = $PBP;
+		}
+
+		public function getPkBasePrice() {
+			return $this->PkBasePrice;
+		}
+	}
 
  ?>

@@ -1,3 +1,12 @@
+<!-- /**************************
+*
+* Author: DongMing Hu
+* Date: Feb. 11, 2019
+* Course: CPRG 210 PHP
+* Description: the a contact page includes two tables
+*
+**************************/ -->
+
 <!DOCTYPE html>
 <html>
 
