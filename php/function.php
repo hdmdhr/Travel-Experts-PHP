@@ -53,4 +53,57 @@ function insertArrayIntoDBTable(array $agentsArray, $database, $tableName){
   return $result;
 }
 
+
+// connect to database
+function ConnectDB(){
+  $link = new mysqli("localhost", "admin", "P@ssw0rd", "travelexperts");
+  if ($link->connect_errno){
+      print("There was an error connecting:". $link->connect_errno . " -- " . $link->connect_error);
+      exit;
+  }
+  return $link;
+}
+// close the datebase
+function CloseDB($link){
+  mysqli_close($link);
+}
+
+// function to get 
+function GetPackage() {
+  include_once("classes.php");
+  $dbh = ConnectDB();
+
+  $sql = "SELECT * FROM packages";
+
+  if (!$result = $dbh->query($sql)){
+      echo "ERROR: the sql failed to execute. <br>";
+      echo "SQL: $sql <br>";
+      echo "Error #: ". $dbh->errono. "<br>";
+      echo "Error msg: ". $dbh->error ." <br>";
+  }
+
+  if ($result === 0 ){
+      echo "There were no results<br>";
+  }
+  // initializing array for all packages
+  $packages = array();
+  // looping through result for each package($pack)
+  while ($pack = $result->fetch_assoc()){
+      // Constructing a singe package object
+      $package = new Package(
+          $pack["PackageId"],
+          $pack["PkgName"],
+          $pack["PkgStartDate"],
+          $pack["PkgEndDate"],
+          $pack["PkgDesc"],
+          $pack["PkgBasePrice"]);
+      // adding the package object to array of package
+      $packages[] = $package;
+  } // end of While
+  
+  CloseDB($dbh);
+
+  return $packages; // this is an array of package objects
+
+}
  ?>

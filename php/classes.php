@@ -142,6 +142,69 @@ echo $test;
     }
   }
 
+  class Package {
+    protected $id;
+		protected $PkName;
+		protected $PkStartDate;
+		protected $PkEndDate;
+		protected $PkDesc;
+		protected $PkBasePrice;
 
+		public function __construct($id,$PN, $PSD, $PED, $PD,$PBP){
+      $this->id = $id;
+      $this->PkName = $PN;
+			$this->PkStartDate = $PSD;
+			$this->PkEndDate = $PED;
+			$this->PkDesc = $PD;
+			$this->PkBasePrice = $PBP;
+		}
+
+		public function getId() {
+			return $this->id;
+		}
+
+		public function setId($id) {
+			$this->id = $id;
+    }
+
+		public function setPkName($PN) {
+			$this->PkName = $PN;
+		}
+
+		public function getPkName() {
+			return $this->PkName;
+		}
+
+		public function setPkStartDate($PSD) {
+			$this->PkStartDate = $PSD;
+		}
+
+		public function getPkStartDate() {
+			return $this->PkStartDate;
+		}
+
+		public function setPkEndDate($PED) {
+			$this->PkEndDate = $PED;
+		}
+
+		public function getPkEndDate() {
+			return $this->PkEndDate;
+		}
+
+		public function setPkDesc($PD) {
+			$this->PkDesc = $PD;
+		}
+
+		public function getPkDesc() {
+			return $this->PkDesc;
+    }
+    public function setPkBasePrice($PBP) {
+			$this->PkBasePrice = $PBP;
+		}
+
+		public function getPkBasePrice() {
+			return $this->PkBasePrice;
+		}
+	}
 
  ?>
