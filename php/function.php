@@ -1,13 +1,22 @@
 <?php
+/**************************
+*
+* Author: DongMing Hu
+* Date: Feb. 11, 2019
+* Course: CPRG 210 PHP
+* Description: include two generic functions, insert object into database table, insert array into database table.
+*
+**************************/
 
+// ---- Generic Function: insert object into database (OOP) ----
 
 function insertObjIntoDBTable(object $obj, $database, $tableName) {
 
   $fieldsArray = get_class($obj)::$fields;
-  $fields = implode(',',$fieldsArray);  // Note: $fields has AgentId !!
-  $vPlaceholders = implode(',', array_fill(0,count($fieldsArray),'?'));
+  $fields = implode(',',$fieldsArray);  // Note: $fields include AgentId !
+  $vPlaceholders = implode(',', array_fill(0,count($fieldsArray),'?'));  // get ?,?,?,?,?,?,?,?
   $fieldsType = get_class($obj)::$fieldsType;  // get 'ssiissss'
-  $values = array_values(get_object_vars($obj));  // put $obj properties values in num array, *can only access public properties
+  $values = array_values(get_object_vars($obj));  // put $obj properties values into a num array, * only public properties
 
   $insertSQL = "INSERT INTO $tableName ($fields) VALUES ($vPlaceholders)";
 
@@ -26,7 +35,7 @@ function insertObjIntoDBTable(object $obj, $database, $tableName) {
 
 
 
-// ---- Func Insert Array Into Database ----
+// ---- Old Function: insert array into database (Procedural) ----
 
 function insertArrayIntoDBTable(array $agentsArray, $database, $tableName){
 
