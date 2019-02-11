@@ -19,18 +19,19 @@
 <body>
 <header>
 <h1>
-Please select your travelling ticket 
+Please select your travelling ticket
 </h1>
 </header>
   <section>
   <table class="table package-table">
   <?php
 
-  $array1=array( "img/Australia.jpg",
-  "img/Norway.jpg",
-  "img/Canada.jpg",
-  "img/Japan.jpg",
-  "img/China.jpg"
+  $array1=array(
+    "img/Australia.jpg",
+    "img/Norway.jpg",
+    "img/Canada.jpg",
+    "img/Japan.jpg",
+    "img/China.jpg"
 );
       $i = 0;
       foreach ($packages as $pack) {
@@ -43,13 +44,13 @@ Please select your travelling ticket
       print("<td class='tdpackage'>". $pack->getPkBasePrice() ."</td>");
 
       print("<td><img src=".$array1[$i]." class='packageImg'></td>");
-      print("<td><a href='booking.php'><button class='btn btn-primary'>Order Now!</button></button>");
+      print("<td><a href='booking.php' alt='picture'><button class='btn btn-primary'>Order Now!</button></button>");
       $i++;
       print("</tr>");
 
       }
 
-      
+
 
   ?>
   </table>

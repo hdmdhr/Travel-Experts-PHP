@@ -2,6 +2,7 @@
 
 var title = document.querySelector('title').text;
 
+// Highlight the current navigation tab user is on
 switch (title) {
   case 'Travel Experts':
     $('.home')[0].classList.add('nav-tab-current');
@@ -225,8 +226,8 @@ if (document.getElementById("bodybooking")){
     errorYear.style.display = "none";
     errorCusid.style.display = "none";
     correctcnum.style.display="none";
-    
-    
+
+
     var CreditNumber = document.creditform.CCNumber.value;
     var Month = document.creditform.month.value;
     var Date = document.creditform.date.value;
@@ -240,7 +241,7 @@ if (document.getElementById("bodybooking")){
       errorCName.style.display="block";
       return false;
   }
- 
+
 
    if (!CreditNumber){
 
@@ -262,7 +263,7 @@ if (document.getElementById("bodybooking")){
        errorMonth.style.display="block";
        return false;
    }
-   
+
    var selectdate = document.getElementById("date");  //// date validation
    if (selectdate.value==0){
        event.preventDefault();
