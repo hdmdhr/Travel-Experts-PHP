@@ -35,10 +35,10 @@ function insertObjIntoDBTable(object $obj, $database, $tableName) {
 
 // ---- Query data from database ----
 
-function getDataArrayFromDatabase($sql,$database){
+function queryDataArrayFromDatabase($sql,$database){
   $rowArray = array();
   if (!$result = $database->query($sql)){
-      echo "Query has no result.";
+      echo "<h1>Query has failed.</h1>";
   } else {
     while ($row = $result->fetch_assoc()){
       $rowArray[] = $row;
