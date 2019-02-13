@@ -38,6 +38,7 @@
 
 <?php
 
+
 ////Mahda/////
 
 ////////////validation for each part of the credit card form///////////
@@ -86,17 +87,13 @@
 
                 $credit_data["CCExpiry"] = implode ("-",$exp_data);
 
-                if (!$_POST["CustomerId"]) {
-                     $error_massages .= "<h3>Please insert Customer Id.</h3><br>";
-                     $credit_data["CustomerId"] = "";
-                     } else {
-                     $credit_data["CustomerId"] = $_POST["CustomerId"];
-                     }
+                
 
       } 
 
       if ($error_massages == "") {
            $result = CreditInsert($credit_data);
+           $book = BookingInsert();
            
            if ($result){
                 print("<h4>The credit information was added to the database.</h4>");
@@ -208,8 +205,7 @@
 
        <br><br>
 
-           <label for="CustomerId">Customer Id :</label>
-           <input class="" type="text" name="CustomerId" value="{$credit_data["CustomerId"]}"><br><br>
+           
 
           
            <input type="submit" name="submit" value="submit">
@@ -331,8 +327,7 @@ EOF;
 
                 <br><br><br>
 
-                <label for="CustomerId">Customer Id  :</label>
-                <input id="CustomerId" class="" type="text" name="CustomerId"><br><br>
+             
              
                 <input id="submitbtn" type="submit" name="submit" value="submit">
 
@@ -377,7 +372,7 @@ EOF;
                $CreditName = $credit_data['CCName'];
                $CreditNumber = $credit_data['CCNumber'];
                $ExDate = $credit_data['CCExpiry'];
-               $CustomerId = $credit_data['CustomerId'];
+               $CustomerId = "123";
                
                $sql = " INSERT INTO creditcards (CCName, CCNumber, CCExpiry, CustomerId)
                VALUES ('$CreditName','$CreditNumber','$ExDate','$CustomerId')";
@@ -388,5 +383,34 @@ EOF;
                CloseDB($link);
                return $result;
           }
+     //////////////////////////function for inserting booking info to database
+          function BookingInsert(){
+               $link = ConnectDB();
+
+
+               $BookingDate = "2016-01-31 00:00:00";
+               $CustomerId = "123";
+               $PackageId = "2";
+               $book_data = array ("$BookingDate", "$CustomerId", "$PackageId");
+               $Bookdate = $book_data[0];
+               $CustId = $book_data[1];
+               $PacId = $book_data[2];
+               
+               $sql = " INSERT INTO bookings (BookingDate, CustomerId, PackageId)
+               VALUES ('$Bookdate','$CustId','$PacId')";
+      
+               $book = mysqli_query($link, $sql);
+
+      
+      
+               CloseDB($link);
+               return $book;
+          }
+
+
+
+
+
+
 
 ?>
