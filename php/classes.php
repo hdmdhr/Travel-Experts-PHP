@@ -159,6 +159,10 @@ echo $test;
 			$this->PkBasePrice = $PBP;
 		}
 
+    function calculateTimePeriod(){
+      // return the subtraction between start date and end date
+    }
+
 		public function getId() {
 			return $this->id;
 		}
@@ -206,5 +210,24 @@ echo $test;
 			return $this->PkBasePrice;
 		}
 	}
+
+  /**
+   *
+   */
+  class CreditCard {
+    protected $cardId;
+    protected $cardName;
+    protected $cardNumber;
+    protected $expireDate;
+    protected $custId;
+
+    function __construct($cName,$cNum,$ex,$custId) {
+      $this->cardName = $cName;
+      $this->cardNumber = $cNum;
+      $this->expireDate = $ex;
+      $this->custId = $custId;
+    }
+  }
+
 
  ?>

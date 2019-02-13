@@ -36,16 +36,14 @@ if(session_id() == '' || !isset($_SESSION)) {
       checkTryTimes($_SESSION['try-times']['try']);
     }
 
-
-    // ---- Read users-info.txt and convert to hashtable ----
+    // TODO: Validate user name and pin using database
+    // ---- Read agent user name and pin from database ----
 
     $userPinArray = array();
-    foreach (file('users-info.txt') as $line) {  // file() return a num array
-      list($userId,$password) = explode(",",trim($line));
-      $userPinArray += [$userId => $password];  // $userPinArray is (userId => pin), use it to validate login
-    }
 
-    // ---- Test if user-id and password match ----
+
+    //// TODO:  ---- Test if user-id and password match ----
+    // TODO: save username in a session
 
     $userId = $_POST['UserId'];
     if (array_key_exists($userId,$userPinArray)) {
