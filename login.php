@@ -14,11 +14,11 @@ if(session_id() == '' || !isset($_SESSION)) {
 
   if ($_POST) {
 
-    // ---- Check if user reached maximum try times(5) per hour ----
+    // ---- Check if user reached maximum try times(15) per hour ----
 
     function checkTryTimes($tryTimes) {
       // check try times to show corresponding message
-      if ($tryTimes >= 5) {
+      if ($tryTimes >= 15) {
         echo "<h1 class='alert alert-danger'>You've reached the maximum try times, please try an hour later.</h1>";
         exit;
       } else {
@@ -36,31 +36,44 @@ if(session_id() == '' || !isset($_SESSION)) {
       checkTryTimes($_SESSION['try-times']['try']);
     }
 
+    // ---- Validate user name and pin using database ----
 
-    // ---- Read users-info.txt and convert to hashtable ----
+    include_once('php/function.php');
+    $travelExperts = ConnectDB();
+    $inputUserName = $_POST['UserId'];
+    $inputPassword = $_POST['Password'];
+    $sql = "SELECT AgtPassword, AgentId, AgtFirstName FROM agents WHERE AgtUserName = '$inputUserName'";
 
-    $userPinArray = array();
-    foreach (file('users-info.txt') as $line) {  // file() return a num array
-      list($userId,$password) = explode(",",trim($line));
-      $userPinArray += [$userId => $password];  // $userPinArray is (userId => pin), use it to validate login
+    if (!queryDataArrayFromDatabase($sql,$travelExperts)) {
+      echo "<h2 class='alert alert-danger' role='alert'>User name or password do not exist.</h2>";
+    } else {
+      // if there is a row in database match user name, extract password, id, and first name values for future use
+      $savedPin = queryDataArrayFromDatabase($sql,$travelExperts)[0]['AgtPassword'];
+      $agtId = queryDataArrayFromDatabase($sql,$travelExperts)[0]['AgentId'];
+      $agtFirstName = queryDataArrayFromDatabase($sql,$travelExperts)[0]['AgtFirstName'];
+
+      if (password_needs_rehash($savedPin,PASSWORD_DEFAULT)) {
+        // if saved pin need rehash, rehash it, and update database
+        $savedPin = password_hash($savedPin,PASSWORD_DEFAULT);
+        $updateSql = "UPDATE `agents` SET `AgtPassword` = '$savedPin' WHERE `agents`.`AgentId` = $agtId";
+        if (!$travelExperts->query($updateSql)) {
+          echo "<h2 class='alert alert-danger' role='alert'>Update password failed.</h2>";
+        }
+      }
+
+      if (!password_verify($inputPassword,$savedPin)) {
+        echo "<h2 class='alert alert-danger' role='alert'>Password or user name do not exist.</h2>";
+      } else {
+        // if passwords match, save user's first name in a session, head to *agent entry page (temporary)
+        $_SESSION['loggedin-agentId-fn'] = array($agtId, $agtFirstName);
+        header("Location: http://localhost/PLDM-Team-2/new-agent.php");
+      }
+
     }
 
-    // ---- Test if user-id and password match ----
-
-    $userId = $_POST['UserId'];
-    if (array_key_exists($userId,$userPinArray)) {
-      // user-id match, check password
-      if ($_POST['Password'] === $userPinArray[$userId]) {
-        // password match, save user-id into a session, head to agent entry page
-        $_SESSION['user-id'] = $_POST['UserId'];
-
-        // agents and users could use same login page but send you to different page.
-          header("Location: http://localhost/ThreadProj/customerpage.php");
-
-        //header("Location: http://localhost/CPRG-210-OSD-Assignment/new-agent.php");
-      } else { echo "<h2 class='alert alert-danger' role='alert'>Password or User ID do NOT match.</h2>"; }
-    } else { echo "<h2 class='alert alert-danger' role='alert'>User ID or Password do NOT match.</h2>"; }
-  } else { echo "No post received."; }
+  } else { 
+    // echo "No post received."; 
+  }
 
 
 
@@ -96,7 +109,7 @@ if(session_id() == '' || !isset($_SESSION)) {
     <a href="index.php" target="_blank">
       <img class="mb-2" src="img/balloon.png" alt="logo" width="72" height="72">
     </a>
-    <h1 class="h3 mb-3 font-weight-normal">Please Log In</h1>
+    <h1 class="h3 mb-3 font-weight-normal">Agent login</h1>
     <div class="signin-section mb-3">
       <label for="user-id">User ID</label>
       <input type="text" id="user-id" class="form-control" name="UserId" placeholder="Your user id or email" required autofocus>

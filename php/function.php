@@ -33,6 +33,20 @@ function insertObjIntoDBTable(object $obj, $database, $tableName) {
   return $bool;
 }
 
+// ---- Query data from database ----
+
+function queryDataArrayFromDatabase($sql,$database){
+  $rowArray = array();
+  if (!$result = $database->query($sql)){
+      echo "<h1>Query has failed.</h1>";
+  } else {
+    while ($row = $result->fetch_assoc()){
+      $rowArray[] = $row;
+    }
+  }
+  return $rowArray;
+}
+
 
 
 // ---- Old Function: insert array into database (Procedural) ----
@@ -68,7 +82,7 @@ function CloseDB($link){
   mysqli_close($link);
 }
 
-// function to get 
+// function to get
 function GetPackage() {
   include_once("classes.php");
   $dbh = ConnectDB();
@@ -100,7 +114,7 @@ function GetPackage() {
       // adding the package object to array of package
       $packages[] = $package;
   } // end of While
-  
+
   CloseDB($dbh);
 
   return $packages; // this is an array of package objects
