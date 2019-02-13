@@ -22,7 +22,7 @@ if(session_id() == '' || !isset($_SESSION)) {
         echo "<h1 class='alert alert-danger'>You've reached the maximum try times, please try an hour later.</h1>";
         exit;
       } else {
-        echo "<h2 class='alert alert-danger'>You've tried ".$tryTimes." times, ".(5 - $tryTimes)." times left.</h2>";
+        echo "<h2 class='alert alert-danger'>You've tried ".$tryTimes." times, ".(15 - $tryTimes)." times left.</h2>";
       }
     }
 
@@ -64,7 +64,7 @@ if(session_id() == '' || !isset($_SESSION)) {
       if (!password_verify($inputPassword,$savedPin)) {
         echo "<h2 class='alert alert-danger' role='alert'>Password or user name do not exist.</h2>";
       } else {
-        // if passwords match, save user's first name in a session, head to *agent entry page (temporary)
+        // if passwords match, save user id and first name in a session, head to *agent entry page (temporary)
         $_SESSION['loggedin-agentId-fn'] = array($agtId, $agtFirstName);
         header("Location: http://localhost/PLDM-Team-2/new-agent.php");
       }
