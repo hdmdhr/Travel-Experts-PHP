@@ -1,4 +1,23 @@
+
 <?php
+session_start();    
+
+   if (!isset($_SESSION["packageId"])) {
+       $_SESSION["packageId"] = $pack->getId();
+   }
+   if (!isset($_SESSION["packageId"])) {
+    $_SESSION["packageName"] = $pack->getPkName();
+}
+if (!isset($_SESSION["packageId"])) {
+  $_SESSION["packagePrice"] = $pack->getPkBasePrice();
+}
+
+
+
+
+
+
+
  include_once("php/function.php");
  $packages = GetPackage();
 
@@ -50,7 +69,7 @@ Please select your travelling ticket
 
       }
 
-
+    
 
   ?>
   </table>
