@@ -19,7 +19,7 @@
   <div class="welcome-banner">
     <?php
       if(session_id() == '' || !isset($_SESSION)) {
-          session_start();
+          session_start();  // if session isn't start, start it
       }
 
     // --- Send regards according to the current time ---
@@ -34,9 +34,9 @@
         } elseif ($hour >= 17) {
           echo "<img src='img/home.png' class='mx-2'>Good Evening ";
         }
-        // TODO: if logged in, say the name in session['user-id']
-        if (isset($_SESSION['user-id'])) {
-          echo "Agent <em>".$_SESSION['user-id']."</em>.<a href='logout.php' ><button class='btn btn-outline-secondary ml-4'>Logout</button></a></h3>";
+        // TODO: if logged in, say the name in session['loggedin-agentId-fn']
+        if (isset($_SESSION['loggedin-agentId-fn'])) {
+          echo "Dear <em>".$_SESSION['loggedin-agentId-fn'][1]."</em>.<a href='logout.php' ><button class='btn btn-outline-secondary ml-4'>Logout</button></a></h3>";
         } else {
           echo "Friend.<a href='login.php' ><button class='btn btn-outline-primary ml-4'>Login</button></a></h3>";
         }
