@@ -13,8 +13,8 @@ if(session_id() == '' || !isset($_SESSION)) {
     session_start();
 }
 
-if (!isset($_SESSION['user-id'])) {
-  header("Location: http://localhost/CPRG-210-OSD-Assignment/login.php");
+if (!isset($_SESSION['loggedin-agentId-fn'])) {
+  header("Location: http://localhost/PLDM-Team-2/login.php");
 }
 
 ?>
