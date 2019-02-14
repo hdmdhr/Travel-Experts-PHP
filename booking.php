@@ -43,11 +43,6 @@
 <?php
 
 
- if(session_id() == '' || !isset($_SESSION)) {
-     session_start();  // if session isn't start, start it
- }
-
-
 ////Mahda/////
 
 ////////////validation for each part of the credit card form///////////
