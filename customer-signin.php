@@ -49,7 +49,11 @@ if ($_POST) {
   } else {
     // if there is a row in database match user name, extract password, id, and first name values for future use
     $savedPin = queryDataArrayFromDatabase($sql,$travelExperts)[0]['CustPassword'];
+
+
     $custId = queryDataArrayFromDatabase($sql,$travelExperts)[0]['CustomerId'];
+
+    
     $custFirstName = queryDataArrayFromDatabase($sql,$travelExperts)[0]['CustFirstName'];
 
     if (password_needs_rehash($savedPin,PASSWORD_DEFAULT)) {
