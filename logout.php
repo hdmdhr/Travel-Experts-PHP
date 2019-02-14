@@ -9,7 +9,7 @@
 **************************/
   session_start();
 
-  unset($_SESSION['user-id']);
+  unset($_SESSION['loggedin-agentId-fn']);
 
-  header("Location: http://localhost/CPRG-210-OSD-Assignment/login.php");
+  header("Location: http://localhost/PLDM-Team-2/login.php");
  ?>

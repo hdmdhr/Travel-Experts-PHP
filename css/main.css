@@ -175,8 +175,8 @@ form label {
   font-size: 0.75em;
   display: inline;
   position: absolute;
-  top: 0.3em;
-  right: 0.3em;
+  bottom: 0.75em;
+  right: 0.5em;
   margin: 0 15px;
   color: grey;
 }
