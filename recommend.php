@@ -36,21 +36,60 @@ while ($row = mysqli_fetch_array($dta, MYSQLI_ASSOC))
     // $pw=$row[$columnNames[12]];
     $pkgtyp=$row[$columnNames[13]];
 
+    //counting for popular package
+
     $dtaa= mySqli_query($dbh,"SELECT Packageid, COUNT(*)c
      FROM customers 
-     WHERE PackageId=$pkgtyp");
+     WHERE PackageId='1'");
 
+    $dta2= mySqli_query($dbh,"SELECT Packageid, COUNT(*)c
+    FROM customers 
+    WHERE PackageId='2'");
 
-    $arr=array();
+    $dta3= mySqli_query($dbh,"SELECT Packageid, COUNT(*)c
+    FROM customers 
+    WHERE PackageId='3'");
+
+    $dta4= mySqli_query($dbh,"SELECT Packageid, COUNT(*)c
+    FROM customers 
+    WHERE PackageId='4'");
+
+    $dta5= mySqli_query($dbh,"SELECT Packageid, COUNT(*)c
+    FROM customers 
+    WHERE PackageId='5'");
+
+    //looping and counting for popular package types
+
+   
     while($all=mysqli_fetch_array($dtaa,MYSQLI_NUM))
     {
-      $recommend= $all[1];
-      
+      $recommend1= $all[1];     
      
     }
-    
-   
 
+    while($all=mysqli_fetch_array($dta2,MYSQLI_NUM))
+    {
+      $recommend2= $all[1];     
+     
+    }
+
+    while($all=mysqli_fetch_array($dta3,MYSQLI_NUM))
+    {
+      $recommend3= $all[1];     
+     
+    }
+    while($all=mysqli_fetch_array($dta4,MYSQLI_NUM))
+    {
+      $recommend4= $all[1];     
+     
+    }
+    while($all=mysqli_fetch_array($dta5,MYSQLI_NUM))
+    {
+      $recommend5= $all[1];     
+     
+    }   
+   
+    $pkcary= array ($recommend1, $recommend2, $recommend3, $recommend4, $recommend5);
 
   }
 
@@ -58,7 +97,9 @@ while ($row = mysqli_fetch_array($dta, MYSQLI_ASSOC))
   
 };
 
-$var= $recommend;
+$var= max ($pkcary);
+$secrec= array_diff($pkcary, array($var));
+$var2= max ($secrec);
 
 
 

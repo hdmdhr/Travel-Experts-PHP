@@ -4,7 +4,7 @@ if(session_id() == '' || !isset($_SESSION)) {
 }
 
 //the codes below can have a seperate php for easy usage in multiple pages
-$dbh= new mySqli("localhost", "admin","lol666","travelexperts"); // change the password 
+$dbh= new mySqli("localhost", "admin","P@ssw0rd","travelexperts"); // change the password 
 
 $sql= "SELECT * FROM customers";
 $dta= mysqli_query($dbh,$sql);
@@ -132,11 +132,9 @@ while ($row = mysqli_fetch_array($dta, MYSQLI_ASSOC))
 
         $dtap=mysqli_query($dbh, "SELECT * FROM purchases");
         
-        // mysqli_fetch_array($dtp, MYSQLI_ASSOC)
-        // $rows = mysqli_fetch_assoc($dtp);
-        // $rowcount= $rows['ttlrow'];
+        
+        $discrip = array("Travel Australia", "Travel Norway", "Travel Canada","Travel Japan", "Travel China");
 
-      
         while ($row= mysqli_fetch_array($dtap, MYSQLI_ASSOC))
         {            
             if ($row['CustomerId']==$customerId)
@@ -144,14 +142,14 @@ while ($row = mysqli_fetch_array($dta, MYSQLI_ASSOC))
                 
                 
                 $cusId= $row['CustomerId'];
-                $pkgId= $row['PackageId'];
+                $pkgId= $row['PackageId']-1;
                 $agtId= $row['AgentId'];
              
                 
                 for ($i=0; $i< 1; $i++)
                 {
                     echo "<tr>";
-                    echo "<td>$pkgId</td>";
+                    echo "<td>$discrip[$pkgId]</td>";
                     echo "<td>$agtId</td>";
                     echo "</tr>";
                     
@@ -164,7 +162,34 @@ while ($row = mysqli_fetch_array($dta, MYSQLI_ASSOC))
 
 
 
-    </table>
+    </table><br>
+
+    <h1> We Also Recommend </h1><br>
+    <br>
+
+    <div >
+    <?php
+        include_once('recommend.php');
+        $imgarray= array("img/Australia.jpg", "img/Norway.jpg", "img/Canada.jpg", "img/Japan.jpg","img/China.jpg");
+        $discrip = array("Travel Australia", "Travel Norway", "Travel Canada","Travel Japan", "Travel China");
+        $nn=$var;
+        $n=$var2;
+        
+
+        // echo $imgarray[$nn];
+
+        //recomend package
+
+        echo "<div class='recomend'><a href='http://localhost/PLDM-Team-2/package.php'><img src='$imgarray[$nn]'></a>";
+        echo "<p class='imgcaption'>$discrip[$nn]</p></div>";
+
+        echo "<div class='recomend'><a href='http://localhost/PLDM-Team-2/package.php'><img src='$imgarray[$n]'></a>";
+        echo "<p class='imgcaption'>$discrip[$n]</p></div>";
+    ?>
+
+  </div>
+
+
 
          
 </body>

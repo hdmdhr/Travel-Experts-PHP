@@ -3,7 +3,7 @@ if(session_id() == '' || !isset($_SESSION)) {
     session_start();
 }
 
-$dbh= new mySqli("localhost", "admin","lol666","travelexperts"); // change the password 
+$dbh= new mySqli("localhost", "admin","P@ssw0rd","travelexperts"); // change the password 
 
 $dta= mysqli_query($dbh,"SELECT * FROM customers");
 
@@ -25,6 +25,27 @@ $dta= mysqli_query($dbh,"SELECT * FROM customers");
   <link rel="stylesheet" href="css/main.css">
   <!-- Custom styles for this template -->
   <link href="css/signin.css" rel="stylesheet">
+
+  <style>
+  .recomend{
+    position: relative;
+    margin-top: 20px; 
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+ 
+
+  .imgcaption{
+    position: absolute;
+    top: 8px;
+    right:50%;
+
+  }
+
+
+  </style>
+
 
 </head>
 <body>
@@ -112,19 +133,26 @@ while ($row = mysqli_fetch_array($dta, MYSQLI_ASSOC))
         </div>
   </nav>
 
-  <div>
+  <h1> Our Recomendation </h1>
+
+  <div >
     <?php
         include_once('recommend.php');
         $imgarray= array("img/Australia.jpg", "img/Norway.jpg", "img/Canada.jpg", "img/Japan.jpg","img/China.jpg");
+        $discrip = array("Travel Australia", "Travel Norway", "Travel Canada","Travel Japan", "Travel China");
         $nn=$var;
+        $n=$var2;
         
 
         // echo $imgarray[$nn];
 
         //recomend package
 
-        echo "<a href='http://localhost/PLDM-Team-2/package.php'><img src='$imgarray[$nn]'></a>";
+        echo "<div class='recomend'><a href='http://localhost/PLDM-Team-2/package.php'><img src='$imgarray[$nn]'></a>";
+        echo "<p class='imgcaption'>$discrip[$nn]</p></div>";
 
+        echo "<div class='recomend'><a href='http://localhost/PLDM-Team-2/package.php'><img src='$imgarray[$n]'></a>";
+        echo "<p class='imgcaption'>$discrip[$n]</p></div>";
     ?>
 
   </div>
