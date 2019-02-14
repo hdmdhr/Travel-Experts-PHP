@@ -6,6 +6,8 @@ if(session_id() == '' || !isset($_SESSION)) {
 //the codes below can have a seperate php for easy usage in multiple pages
 $dbh= new mySqli("localhost", "admin","lol666","travelexperts"); // change the password 
 
+$sql= "SELECT * FROM customers";
+$dta= mysqli_query($dbh,$sql);
 
 
 
@@ -16,6 +18,8 @@ $columnNames = array("CustomerId", "CustFirstName", "CustLastName",
 
 
  $customerId= $_SESSION['user-id'];
+ echo $customerId;
+
 while ($row = mysqli_fetch_array($dta, MYSQLI_ASSOC))
 {
   if ($row['CustomerId']== $customerId)

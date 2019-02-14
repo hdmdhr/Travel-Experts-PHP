@@ -74,7 +74,7 @@ function insertArrayIntoDBTable(array $agentsArray, $database, $tableName){
 
 // connect to database
 function ConnectDB(){
-  $link = new mysqli("localhost", "admin", "P@ssw0rd", "travelexperts");
+  $link = new mysqli("localhost", "admin", "lol666", "travelexperts");
   if ($link->connect_errno){
       print("There was an error connecting:". $link->connect_errno . " -- " . $link->connect_error);
       exit;
