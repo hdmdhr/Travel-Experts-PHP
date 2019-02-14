@@ -1,9 +1,9 @@
 <?php
 /**************************
 *
-* Author: DongMing Hu
-* Date: Feb. 11, 2019
-* Course: CPRG 210 PHP
+* Author: PLDM Team 2
+* Date: Feb. 14, 2019
+* Course: CPRG 216 Project
 * Description: agent entry page whcih requires login to view
 *
 **************************/
@@ -40,7 +40,7 @@ if (!isset($_SESSION['loggedin-agentId-fn'])) {
   // check error message, save invalidated data
   $oldData = array();
   if (isset($_SESSION['invalidated_post'])) {
-    $errorMsg = "<h4 class='alert alert-danger text-center'>".$_SESSION['errorMsg']."</h4>";
+    $errorMsg = "<p class='alert alert-danger text-center'>".$_SESSION['errorMsg']."</p>";
     $oldData = $_SESSION['invalidated_post'];
     unset($_SESSION['invalidated_post']);
     unset($_SESSION['errorMsg']);
@@ -55,6 +55,7 @@ if (!isset($_SESSION['loggedin-agentId-fn'])) {
       } ?>
 
     <h2>Enter a New Agent</h2>
+
     <div class="row">
       <div class="col-md-6 mb-3">
         <label for="firstName">First name</label>
@@ -90,7 +91,6 @@ if (!isset($_SESSION['loggedin-agentId-fn'])) {
     </div>
 
     <div class="row">
-
       <div class="col-md-6 mb-3">
         <label for="position">Position</label>
         <select class="custom-select d-block w-100" id="position" name="AgtPosition">
@@ -109,7 +109,30 @@ if (!isset($_SESSION['loggedin-agentId-fn'])) {
           <option value="2">Agency 2</option>
         </select>
       </div>
+    </div>
 
+    <div class="row mb-4">
+      <div class="col-md-4">
+        <label for="userName">Username</label>
+        <input type="text" class="form-control" id="userName" name="AgtUserName" placeholder="username" value="<?php if ($oldData):?><?php echo $oldData['AgtUserName']; endif ?>" required>
+        <div class="invalid-feedback">
+          User name is required.
+        </div>
+      </div>
+      <div class="col-md-4">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" name="AgtPassword" placeholder="password" value="" required>
+        <div class="invalid-feedback">
+          Password is required.
+        </div>
+      </div>
+      <div class="col-md-4">
+        <label for="pinConfirm">Password Confirm</label>
+        <input type="password" class="form-control" id="pinConfirm" name="pinConfirm" placeholder="type again" value="">
+        <div class="invalid-feedback">
+          Password doesn't match.
+        </div>
+      </div>
     </div>
 
     <button class="btn btn-primary btn-lg btn-block" type="submit">Enter New Agent</button>

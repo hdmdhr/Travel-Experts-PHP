@@ -43,6 +43,16 @@
 <?php
 
 
+////////////Liming////////////////
+if (isset($_GET)) {
+ print("<h3 class='booking_detail'><strong>Order:</strong> package# : ".$_GET['id'].".  ".$_GET['name']." from ".$_GET['sDate']." to ".$_GET['eDate']." enjoy the ".$_GET['des']."  with Price:  $ ".$_GET['price'].".</h3>");
+}
+////////////Liming////////////////
+
+
+
+
+
 ////Mahda/////
 
 ////////////validation for each part of the credit card form///////////

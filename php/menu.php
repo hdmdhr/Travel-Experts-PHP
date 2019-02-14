@@ -1,8 +1,8 @@
 <!-- **************************
 *
-* Author: DongMing Hu
-* Date: Feb. 11, 2019
-* Course: CPRG 210 PHP
+* Author: PLDM Team 2
+* Date: Feb. 14, 2019
+* Course: CPRG 216 Project
 * Description: html element navigation menu
 *
 ************************** -->
@@ -14,8 +14,8 @@
       <div class="nav-tab contact col-sm-6 col-md-4 col-lg-2">
         <a href="contact.php" target="_blank"><img src="img/contacts.png" alt="Contact Us">Contact Us</a>
       </div>
-      <div class="nav-tab register col-sm-6 col-md-4 col-lg-2">
-        <a href="register.php" target="_blank"><img src="img/register.png" alt="Register Now">Register</a>
+      <div id="cust-signup" class="nav-tab col-sm-6 col-md-4 col-lg-2">
+        <a href="customer-signup.php" target="_blank"><img src="img/register.png" alt="Register Now">Signup</a>
       </div>
       <div class="nav-tab spots col-sm-6 col-md-4 col-lg-2">
         <a href="spots.php" target="_blank"><img src="img/chillies.png" alt="hot spots">Famous Spots</a>
