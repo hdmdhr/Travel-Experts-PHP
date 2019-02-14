@@ -25,11 +25,14 @@
 </head>
 
 <body>
-<header>
-<h1>
+
+<?php
+    require_once('php/header.php')
+   ?>
+<h1 class= "h1 package_head">
 Please select your travelling ticket
 </h1>
-</header>
+
   <section>
   <table class="table package-table">
   <?php
@@ -41,6 +44,17 @@ Please select your travelling ticket
     "img/Japan.jpg",
     "img/China.jpg"
 );
+print("<tr>"); 
+      print("<td class='tdpackage'>Package ID</td>");
+      print("<td class='tdpackage'>Place to visit</td>");
+      print("<td class='tdpackage'>Start Date</td>");
+      print("<td class='tdpackage'>End Date</td>");
+      print("<td class='tdpackage'>Description</td>");
+      print("<td class='tdpackage'>Price</td>");
+      print("<td class='packageImg''>Local scenery</td>");
+      print("<td class='tdpackage'>Click to Order!</td>");
+      
+      print("</tr>"); 
       $i = 0;
       foreach ($packages as $pack) {
         $id = $pack->getId();
@@ -49,15 +63,17 @@ Please select your travelling ticket
         $eDate =$pack->getPkEndDate();
         $des=$pack->getPkDesc();
         $price=$pack->getPkBasePrice();
+      
+      
       print("<tr>");
       print("<td class='tdpackage'>". $id ."</td>");
       print("<td class='tdpackage'>". $name ."</td>");
       print("<td class='tdpackage'>". $sDate ."</td>");
       print("<td class='tdpackage'>".  $eDate ."</td>");
       print("<td class='tdpackage'>". $des ."</td>");
-      print("<td class='tdpackage'>". $price ."</td>");
+      print("<td class='tdpackage'>$". $price ."</td>");
 
-      print("<td><img src=".$array1[$i]." class='packageImg'></td>");
+      print("<td class='packageImg'><img src=".$array1[$i]." class='packageImg'></td>");
       print("<td><a href='booking.php? id=$id&name=$name&sDate=$sDate&eDate=$eDate&des=$des&price=$price' alt='picture'><button class='btn btn-primary'>Order Now!</button></button>");
       $i++;
       print("</tr>");
