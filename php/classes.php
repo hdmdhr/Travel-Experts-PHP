@@ -1,9 +1,9 @@
 <?php
 /**************************
 *
-* Author: DongMing Hu
-* Date: Feb. 11, 2019
-* Course: CPRG 210 PHP
+* Author: PLDM Team 2
+* Date: Feb. 14, 2019
+* Course: CPRG 216 Project
 * Description: include three classes, Person, Agent, Customer.
 *
 **************************/
@@ -20,15 +20,19 @@ echo $test;
     // Note: for the generic insert object into database function to work, have to change the property visibility from protected to public
     public $midNameInit;
     public $postion;
+    public $agtUserName;
+    public $agtPassword;
     public $agencyId;
     // static properties are for database insertion
-    public static $fields = array('AgtMiddleInitial','AgtPosition','AgencyId','AgentId','AgtFirstName','AgtLastName','AgtBusPhone','AgtEmail');
-    public static $fieldsType = 'ssiissss';
+    public static $fields = array('AgtMiddleInitial','AgtPosition','AgtUserName','AgtPassword','AgencyId','AgentId','AgtFirstName','AgtLastName','AgtBusPhone','AgtEmail');
+    public static $fieldsType = 'ssssiissss';
 
-    function __construct($fn,$ln,$bp,$e,$po,$ai,$mi=NULL) {
+    function __construct($fn,$ln,$bp,$e,$po,$ai,$au,$ap,$mi=NULL) {  // __construct arguments order should match the form
       parent::__construct($fn,$ln,$bp,$e);
       $this->midNameInit = $mi;
       $this->postion = $po;
+      $this->agtUserName = $au;
+      $this->agtPassword = $ap;
       $this->agencyId = $ai;
     }
 
@@ -116,7 +120,6 @@ echo $test;
   }
 
   /**
-   * unused class
    */
   class Customer extends Person {
     public $address;
@@ -125,12 +128,14 @@ echo $test;
     public $postal;
     public $country;
     public $homePhone;
+    public $custUserName;
+    public $custPassword;
     public $agentId;
-    public static $fields = array('CustAddress','CustCity','CustProv','CustPostal','CustCountry','CustHomePhone','AgentId','CustomerId','CustFirstName','CustLastName','CustBusPhone','CustEmail');
-    public static $fieldsType = 'ssssssiissss';
+    public static $fields = array('CustAddress','CustCity','CustProv','CustPostal','CustCountry','CustHomePhone','CustUserName','CustPassword','AgentId','CustomerId','CustFirstName','CustLastName','CustBusPhone','CustEmail');
+    public static $fieldsType = 'ssssssssiissss';
 
 
-    function __construct($fName,$lName,$busP,$email,$add,$city,$prov,$post,$country,$homeP,$agtId) {
+    function __construct($fName,$lName,$email,$homeP,$busP,$add,$city,$prov,$post,$cUsername,$cPin,$country='Canada',$agtId=NULL) {  // __construct arguments order should match the html form
       parent::__construct($fName,$lName,$busP,$email);
       $this->address = $add;
       $this->city = $city;
@@ -138,6 +143,8 @@ echo $test;
       $this->postal = $post;
       $this->country = $country;
       $this->homePhone = $homeP;
+      $this->custUserName = $cUsername;
+      $this->custPassword = $cPin;
       $this->agentId = $agtId;
     }
   }

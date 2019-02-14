@@ -1,62 +1,79 @@
 <?php
 /**************************
 *
-* Author: DongMing Hu
-* Date: Feb. 11, 2019
-* Course: CPRG 210 PHP
+* Author: PLDM Team 2
+* Date: Feb. 14, 2019
+* Course: CPRG 216 Project
 * Description: Customer signin page, before sign in, check signin try times, check if username and password match
 *
 **************************/
 
 if(session_id() == '' || !isset($_SESSION)) {
-    session_start();  // if session isn't start, start it
+  session_start();  // if session isn't start, start it
 }
 
-  if ($_POST) {
+if ($_POST) {
 
-    // ---- Check if user reached maximum try times(5) per hour ----
+  // ---- Check if user reached maximum try times(15) per hour ----
 
-    function checkTryTimes($tryTimes) {
-      // check try times to show corresponding message
-      if ($tryTimes >= 5) {
-        echo "<h1 class='alert alert-danger'>You've reached the maximum try times, please try an hour later.</h1>";
-        exit;
-      } else {
-        echo "<h2 class='alert alert-danger'>You've tried ".$tryTimes." times, ".(5 - $tryTimes)." times left.</h2>";
+  function checkTryTimes($tryTimes) {
+    // check try times to show corresponding message
+    if ($tryTimes >= 15) {
+      echo "<h1 class='alert alert-danger'>You've reached the maximum try times, please try an hour later.</h1>";
+      exit;
+    } else {
+      echo "<h2 class='alert alert-danger'>You've tried ".$tryTimes." times, ".(15 - $tryTimes)." times left.</h2>";
+    }
+  }
+
+  if (!isset($_SESSION['try-times']) || time() - $_SESSION['try-times']['time'] > 3600) {
+    // if session doesn't exist or expired, create a new one, check try times
+    $_SESSION['try-times'] = array('try' => 1, 'time' => time() );
+    checkTryTimes($_SESSION['try-times']['try']);
+  } else {
+    // session exist less than 1 hour, check try times
+    $_SESSION['try-times']['try'] += 1;
+    checkTryTimes($_SESSION['try-times']['try']);
+  }
+
+  // ---- Validate user name and pin using database ----
+
+  include_once('php/function.php');
+  $travelExperts = ConnectDB();
+  $inputUserName = $_POST['UserId'];
+  $inputPassword = $_POST['Password'];
+  $sql = "SELECT CustPassword, CustomerId, CustFirstName FROM customers WHERE CustUserName = '$inputUserName'";
+
+  if (!queryDataArrayFromDatabase($sql,$travelExperts)) {
+    echo "<h2 class='alert alert-danger' role='alert'>User name or password do not exist.</h2>";
+  } else {
+    // if there is a row in database match user name, extract password, id, and first name values for future use
+    $savedPin = queryDataArrayFromDatabase($sql,$travelExperts)[0]['CustPassword'];
+    $custId = queryDataArrayFromDatabase($sql,$travelExperts)[0]['CustomerId'];
+    $custFirstName = queryDataArrayFromDatabase($sql,$travelExperts)[0]['CustFirstName'];
+
+    if (password_needs_rehash($savedPin,PASSWORD_DEFAULT)) {
+      // if saved pin need rehash, rehash it, and update database
+      $savedPin = password_hash($savedPin,PASSWORD_DEFAULT);
+      $updateSql = "UPDATE `customers` SET `CustPassword` = '$savedPin' WHERE `customers`.`CustomerId` = $custId";
+      if (!$travelExperts->query($updateSql)) {
+        echo "<h2 class='alert alert-danger' role='alert'>Update password failed.</h2>";
       }
     }
 
-    if (!isset($_SESSION['try-times']) || time() - $_SESSION['try-times']['time'] > 3600) {
-      // if session doesn't exist or expired, create a new one, check try times
-      $_SESSION['try-times'] = array('try' => 1, 'time' => time() );
-      checkTryTimes($_SESSION['try-times']['try']);
+    if (!password_verify($inputPassword,$savedPin)) {
+      echo "<h2 class='alert alert-danger' role='alert'>Password or user name do not exist.</h2>";
     } else {
-      // session exist less than 1 hour, check try times
-      $_SESSION['try-times']['try'] += 1;
-      checkTryTimes($_SESSION['try-times']['try']);
+      // if passwords match, save user id and first name in a session, head to customer account page
+      $_SESSION['loggedin-custId-fn'] = array($custId, $custFirstName);
+      header("Location: http://localhost/PLDM-Team-2/customerpage.php");
     }
 
-
-    // ---- Read users-info.txt and convert to hashtable ----
-
-    $userPinArray = array();
-    foreach (file('users-info.txt') as $line) {  // file() return a num array
-      list($userId,$password) = explode(",",trim($line));
-      $userPinArray += [$userId => $password];  // $userPinArray is (userId => pin), use it to validate login
-    }
-
-    // ---- Test if user-id and password match ----
-
-    $userId = $_POST['UserId'];
-    if (array_key_exists($userId,$userPinArray)) {
-      // user-id match, check password
-      if ($_POST['Password'] === $userPinArray[$userId]) {
-        // password match, save user-id into a session, head to agent entry page
-        $_SESSION['user-id'] = $_POST['UserId'];
-        header("Location: http://localhost/CPRG-210-OSD-Assignment/new-agent.php");
-      } else { $errorMsg = "<h4 class='alert alert-danger'>Password or User ID do NOT match.</h4>"; }
-    } else { $errorMsg = "<h4 class='alert alert-danger'>User ID or Password do NOT match.</h4>"; }
   }
+
+} else { 
+  // echo "No post received."; 
+}
 
  ?>
 
