@@ -7,6 +7,7 @@ $dbh= new mySqli("localhost", "admin","lol666","travelexperts"); // change the p
 
 $dta= mysqli_query($dbh,"SELECT * FROM customers");
 
+
 ?>
 
 
@@ -110,6 +111,23 @@ while ($row = mysqli_fetch_array($dta, MYSQLI_ASSOC))
           <a href="links.php" target="_blank"><img src="img/computer.png" alt="tech">Links</a>
         </div>
   </nav>
+
+  <div>
+    <?php
+        include_once('recommend.php');
+        $imgarray= array("img/Australia.jpg", "img/Norway.jpg", "img/Canada.jpg", "img/Japan.jpg","img/China.jpg");
+        $nn=$var;
+        
+
+        // echo $imgarray[$nn];
+
+        //recomend package
+
+        echo "<a href='http://localhost/PLDM-Team-2/package.php'><img src='$imgarray[$nn]'></a>";
+
+    ?>
+
+  </div>
 
 
 </body>

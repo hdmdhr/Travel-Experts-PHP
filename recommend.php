@@ -5,8 +5,9 @@
 
 //the codes below can have a seperate php for easy usage in multiple pages
 $dbh= new mySqli("localhost", "admin","lol666","travelexperts"); // change the password 
+$dta= mySqli_query($dbh,"SELECT *FROM customers");
 
-$dta= mySqli_query($dbh,"SELECT * FROM customers");
+// $dtap= mySqli_query($dbh, "SELECT")
 
 $columnNames = array("CustomerId", "CustFirstName", "CustLastName",
  "CustAddress", "CustCity", "CustProv", "CustPostal", "CustCountry", "CustHomePhone",
@@ -14,7 +15,9 @@ $columnNames = array("CustomerId", "CustFirstName", "CustLastName",
 
 
 //$customerId= $_SESSION['user-id'];
-$customerId="109";
+
+
+$customerId="106"; ////change this
 while ($row = mysqli_fetch_array($dta, MYSQLI_ASSOC))
 {
   if ($row['CustomerId']== $customerId)
@@ -30,24 +33,23 @@ while ($row = mysqli_fetch_array($dta, MYSQLI_ASSOC))
     $busphone=$row[$columnNames[9]];
     $email=$row[$columnNames[10]];
     $agentid= $row[$columnNames[11]];
-    $pw=$row[$columnNames[12]];
+    // $pw=$row[$columnNames[12]];
     $pkgtyp=$row[$columnNames[13]];
 
-    $arr=array();
-    while($all=mysqli_fetch_array($dbh,MYSQLI_NUM))
-    {
-        foreach ($all as $k) {
-            if(empty(k))
-            {
-                continue;
-            }
-            $arr[]=$val;
-          
-        }
-    }
+    $dtaa= mySqli_query($dbh,"SELECT Packageid, COUNT(*)c
+     FROM customers 
+     WHERE PackageId=$pkgtyp");
 
-    $recommend= array_count_values($arr);
+
+    $arr=array();
+    while($all=mysqli_fetch_array($dtaa,MYSQLI_NUM))
+    {
+      $recommend= $all[1];
+      
+     
+    }
     
+   
 
 
   }
@@ -56,7 +58,7 @@ while ($row = mysqli_fetch_array($dta, MYSQLI_ASSOC))
   
 };
 
-
+$var= $recommend;
 
 
 

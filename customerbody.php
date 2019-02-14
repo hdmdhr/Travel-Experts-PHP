@@ -122,7 +122,7 @@ while ($row = mysqli_fetch_array($dta, MYSQLI_ASSOC))
         echo "</tr>";
 
    
-        $customerId= $_SESSION['user-id'];
+        // $customerId= $_SESSION['user-id'];
 
         $sql= "SELECT GROUP_CONCAT(CustomerId), Count(*)CustomerId 
          FROM purchases 
