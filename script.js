@@ -212,7 +212,9 @@ if (document.getElementById("bodybooking")){
    var errorMonth = document.getElementById("errormonth");
    var errorDate = document.getElementById("errordate");
    var errorYear = document.getElementById("erroryear");
-   var errorCusid = document.getElementById("errorcusid");
+
+   var errorTraveler = document.getElementById("errortraveler");
+   
 
 
 
@@ -223,16 +225,30 @@ if (document.getElementById("bodybooking")){
     errorCNum.style.display = "none";
     errorMonth.style.display = "none";
     errorDate.style.display = "none";
-    errorYear.style.display = "none";
-    errorCusid.style.display = "none";
+    errorYear.style.display = "none"; 
     correctcnum.style.display="none";
+
+    errorTraveler.style.display="none";
+
+
 
 
     var CreditNumber = document.creditform.CCNumber.value;
     var Month = document.creditform.month.value;
     var Date = document.creditform.date.value;
     var Year = document.creditform.year.value;
-    var CustId = document.creditform.CustomerId.value;
+
+    var Travelers = document.creditform.TravelerCount.value;
+
+    if (!Travelers){
+
+      event.preventDefault();
+      errorTraveler.style.display="block";
+      return false;
+  }
+
+
+    
 
 
    var radios = document.getElementsByName("CCName");  //// credit card name validation
@@ -280,12 +296,7 @@ if (document.getElementById("bodybooking")){
 
 
 
-   if (!CustId ){
-
-   event.preventDefault();
-   errorCusid.style.display="block";
-   return false;
-  }
+ 
 
 
 
