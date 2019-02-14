@@ -1,3 +1,12 @@
+<!-- **************************
+*
+* Author: DongMing Hu
+* Date: Feb. 11, 2019
+* Course: CPRG 210 PHP
+* Description: a page to show some popular spots
+*
+************************** -->
+
 <!DOCTYPE html>
 <html lang="en">
 

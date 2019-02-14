@@ -1,0 +1,4 @@
+Liming: packages.startDate, endDate; basePrice.
+Mahda: creditcards.expiry.
+DongMing: agents.add user name and password columns, customers.add user name and password columns.
+02-12 DM: revise agents table user name, password; customers table user name, password; user names are unique now.

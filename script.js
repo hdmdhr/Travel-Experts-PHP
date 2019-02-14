@@ -2,6 +2,7 @@
 
 var title = document.querySelector('title').text;
 
+// Highlight the current navigation tab user is on
 switch (title) {
   case 'Travel Experts':
     $('.home')[0].classList.add('nav-tab-current');
@@ -9,8 +10,8 @@ switch (title) {
   case 'Contact Us':
     $('.contact')[0].classList.add('nav-tab-current');
     break;
-  case 'Register':
-    $('.register')[0].classList.add('nav-tab-current');
+  case 'Customer Signup':
+    $('#cust-signup')[0].classList.add('nav-tab-current');
     break;
   case 'Famous Spots':
     $('.spots')[0].classList.add('nav-tab-current');
@@ -25,9 +26,9 @@ switch (title) {
     break;
 }
 
-if (title === 'Travel Experts' || title === 'Register') {
-  console.log('this is home page or register page.');
-  var form = document.registerForm;
+if (title === 'Travel Experts' || title === 'Customer Signup') {
+  console.log('this is home page or customer signup page.');
+  var form = document.signupForm;
   console.log(form);
 
   // Feature 1: Ask user to confirm after click sumbit & reset
@@ -54,7 +55,7 @@ if (title === 'Travel Experts' || title === 'Register') {
         $('#zip').addClass('invalid-input');
         isValidated = false;
       }
-      if (age.value < 18) {
+      if (form.age.value < 18) {
         form.age.focus();
         $('#errorAge').css('display', 'block');
         $('#age').addClass('invalid-input');
@@ -66,22 +67,25 @@ if (title === 'Travel Experts' || title === 'Register') {
         $('#email').addClass('invalid-input');
         isValidated = false;
       }
-      if (!form.name.value) {
-        form.name.focus();
+      if (!form.firstName.value) {
+        form.firstName.focus();
         $('#errorName').css('display', 'block');
         $('#name').addClass('invalid-input');
         isValidated = false;
       }
       if (isValidated) {
         form.submit();
+        console.log('FORM IS SUBMITTED.');
       }
+    } else {
+      event.preventDefault();
     }
   });
 
   form.resetBtn.addEventListener('click', function(event) {
+    event.preventDefault();
     if (confirm('This will reset all your infomation.')) {
       form.reset();
-      event.preventDefault();
       form.name.focus();
     }
   });
@@ -197,3 +201,103 @@ if (title === 'Famous Spots') {
 
 
 }
+
+
+
+
+////////mahda-booking page////////////////////
+if (document.getElementById("bodybooking")){
+
+
+   var submitButton = document.getElementById("submitbtn");
+   var errorCName = document.getElementById("errorcname");
+   var errorCNum = document.getElementById("errorcnum");
+   var errorMonth = document.getElementById("errormonth");
+   var errorDate = document.getElementById("errordate");
+   var errorYear = document.getElementById("erroryear");
+   var errorCusid = document.getElementById("errorcusid");
+
+
+
+
+   submitButton.addEventListener("click", function(event) {////start of click function for validation form & submit
+
+    errorCName.style.display = "none";
+    errorCNum.style.display = "none";
+    errorMonth.style.display = "none";
+    errorDate.style.display = "none";
+    errorYear.style.display = "none";
+    errorCusid.style.display = "none";
+    correctcnum.style.display="none";
+
+
+    var CreditNumber = document.creditform.CCNumber.value;
+    var Month = document.creditform.month.value;
+    var Date = document.creditform.date.value;
+    var Year = document.creditform.year.value;
+    var CustId = document.creditform.CustomerId.value;
+
+
+   var radios = document.getElementsByName("CCName");  //// credit card name validation
+   if (!(radios[0].checked || radios[1].checked || radios[2].checked)){
+      event.preventDefault();
+      errorCName.style.display="block";
+      return false;
+  }
+
+
+   if (!CreditNumber){
+
+      event.preventDefault();
+      errorCNum.style.display="block";
+      return false;
+  }
+   if (!(CreditNumber.length==16)){      /////credit number format validation
+     event.preventDefault();
+     correctcnum.style.display="block";
+     return false;
+  }
+
+
+
+   var selectmonth = document.getElementById("month");  //// month validation
+   if (selectmonth.value==0){
+       event.preventDefault();
+       errorMonth.style.display="block";
+       return false;
+   }
+
+   var selectdate = document.getElementById("date");  //// date validation
+   if (selectdate.value==0){
+       event.preventDefault();
+       errorDate.style.display ="block";
+       return false;
+   }
+
+   var selectyear = document.getElementById("year");  //// year validation
+   if (selectyear.value==0){
+       event.preventDefault();
+       errorYear.style.display="block";
+       return false;
+   }
+
+
+
+   if (!CustId ){
+
+   event.preventDefault();
+   errorCusid.style.display="block";
+   return false;
+  }
+
+
+
+
+});////end of click function for validation & submit
+
+
+
+
+
+
+  }///////////////////////// end of bodybooking

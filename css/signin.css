@@ -20,9 +20,9 @@ body {
 
 .form-signin {
   text-align: center;
-  width: 100%;
-  max-width: 330px;
-  padding: 15px;
+  width: 33%;
+  max-width: 380px;
+  padding: 20px;
   margin: auto;
 }
 .h3 {

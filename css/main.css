@@ -12,7 +12,8 @@ body {
 }
 
 h2 {
-  margin: 1.5rem 0;
+  text-align: center;
+  margin: 0 0 1.5rem 0;
 }
 
 /* --- Header Section --- */
@@ -136,8 +137,9 @@ form {
   text-align: left;
   background-color: rgba(47, 79, 79, 0.1);
   width: 50%;
+  max-width: 650px;
   margin: 2% auto;
-  padding: 3%;
+  padding: 2%;
 }
 
 form label {
@@ -170,10 +172,11 @@ form label {
 }
 
 .input-hint-show {
+  font-size: 0.75em;
   display: inline;
   position: absolute;
-  top: 0.3em;
-  right: 0.3em;
+  bottom: 0.75em;
+  right: 0.5em;
   margin: 0 15px;
   color: grey;
 }
@@ -207,6 +210,10 @@ input:focus::-webkit-input-placeholder,textarea:focus::-webkit-input-placeholder
   background-color: white;
 }
 
+.package-table {
+  width:60%;
+}
+
 .table thead th {
   border: 2px solid rgba(47, 79, 79, 0.7);
 }
@@ -214,7 +221,7 @@ input:focus::-webkit-input-placeholder,textarea:focus::-webkit-input-placeholder
 th, td {
   border: 1px solid rgba(47, 79, 79, 0.7);
 }
-
+.tdpackage{width:10%; border: 1px solid rgba(47, 79, 79, 0.7);}
 td img {
   width: 100%;
   border: 2px solid white;

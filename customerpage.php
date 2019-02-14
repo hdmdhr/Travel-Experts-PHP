@@ -3,7 +3,12 @@ if(session_id() == '' || !isset($_SESSION)) {
     session_start();
 }
 
+<<<<<<< HEAD
 $dbh= new mySqli("localhost", "admin","lol666","travelexperts"); // change the password 
+=======
+$userID= $_SESSION['user-id'];
+$dbh= new mySqli("localhost", "admin", "agent","travelexperts.php");
+>>>>>>> c196be0c4bbd710eb667f2d587999f4773d54d05
 
 $dta= mysqli_query($dbh,"SELECT * FROM customers");
 
