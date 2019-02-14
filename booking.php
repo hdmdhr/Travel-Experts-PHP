@@ -11,33 +11,33 @@
   <link rel="stylesheet" href="css/main.css">
 
   <style>
-  
+
   h3 {
        color:red;
-       font-weight:bold; 
+       font-weight:bold;
   }
   h4 {
        color:green;
-       font-weight:bold; 
+       font-weight:bold;
   }
-  h5{ 
+  h5{
      color:blue;
-     font-weight:bold; 
+     font-weight:bold;
 
     }
 
   p {
        color:red;
-       font-weight:bold; 
+       font-weight:bold;
   }
   </style>
 </head>
 
-      <body id="bodybooking"> 
+      <body id="bodybooking">
 
 <?php
       require_once('php/header.php');
-    
+
  ?>
 
 <?php
@@ -58,9 +58,9 @@ if (isset($_GET)) {
 ////////////validation for each part of the credit card form///////////
 
      $error_massages = 'first';
-    
+
       if (isset($_POST["submit"])) {
-   
+
            $error_massages = "";
 
                 if (!$_POST["TravelerCount"]) {
@@ -73,7 +73,7 @@ if (isset($_GET)) {
 
 
 
-                
+
                 if (!($_POST["CCName"]== "AMEX" || $_POST["CCName"]== "VISA" || $_POST["CCName"]== "Mastercard")) {
                      $error_massages .= $error_massages ."<h3>Please insert your Credit card name.</h3><br>";
                      $credit_data["CCName"] = "";
@@ -110,27 +110,27 @@ if (isset($_GET)) {
                      }
 
                 $credit_data["CCExpiry"] = implode ("-",$exp_data);
-                
-      } 
+
+      }
       if ($error_massages == "") {
            $result = CreditInsert($credit_data);
            $book = BookingInsert($credit_data);
-           
+
            if ($result){
-                
+
                 print("<h4>Your package was successfully booked.</h4>");
-          
+
                 $date = date('Y-m-d  ,  H:i:s');
                 print("<h5> Booking date : " . $date . "</h5> <br><br>");
 
-           
+
                 } else {
                 print("<h3>There was an error with the credit data, please try again.</h3>");
                 }
       }
 
 
-      
+
       elseif ($error_massages != 'first'){
       ////////////////create the form and error messages/////////////////////
            print "$error_massages";
@@ -139,20 +139,20 @@ if (isset($_GET)) {
 
            <label  for="TravelerCount"> Number of Travelers  :</label>
            <input id="TravelerCount" type="number" min="1" step="1" name="TravelerCount" value="{$credit_data["TravelerCount"]}"><br><br>
-          
+
            <label for="CCName" > Credit card name :</label>
            <input type="radio"   id="CCName" name="CCName" value="AMEX"/>AMEX
            <input type="radio"   name="CCName" value="VISA"/>VISA
            <input type="radio"   name="CCName" value="Mastercard"/>Mastercard
-                
+
            <br><br>
            <label for="CCNumber">Credit card number:</label>
-           <input class="" type="text" name="CCNumber" value="{$credit_data["CCNumber"]}"> <br><br> 
+           <input class="" type="text" name="CCNumber" value="{$credit_data["CCNumber"]}"> <br><br>
            <label for="CCExpiry">Expire date :</label>
-                   
+
            <table style="margin-top: -30px" align=center>
            <tr>
-                 <td >   
+                 <td >
                       <select name="month" value=''>
                       <option value='00'>Month</option>
                       <option value='01'>January</option>
@@ -169,7 +169,7 @@ if (isset($_GET)) {
                       <option value='12'>December</option>
                       </select>
                  </td>
-                 <td >   
+                 <td >
                       <select name="date" >
                       <option value='00'>Date</option>
                       <option value='01'>01</option>
@@ -205,8 +205,8 @@ if (isset($_GET)) {
                       <option value='31'>31</option>
                       </select>
                  </td>
-      
-                 <td>  
+
+                 <td>
                  <select name="year" >
                       <option value='00'>Year</option>
                       <option value='01'>2019</option>
@@ -221,25 +221,25 @@ if (isset($_GET)) {
                       <option value='10'>2028</option>
                       <option value='09'>2029</option>
                       <option value='10'>2030</option>
-                
+
                  </td>
             </tr>
            </table>
        <br><br>
-           
-          
+
+
            <input type="submit" name="submit" value="submit">
-          
-               
+
+
       </form>
 EOF;
-    
-      } 
+
+      }
       else {
      ?>
           <br><br>
 
-          
+
 
            <br><br>
            <p id="errorcname" class="bookerror" style="display:none;"> Credit name is required to be filled!</p>
@@ -250,8 +250,8 @@ EOF;
            <p id="correctcnum" class="bookerror" style="display:none;"> Credit number must be 16 digits number!</p>
 
            <p id="errortraveler" class="bookerror" style="display:none;"> Number of travelers is required to be filled!</p>
-           
-           
+
+
 
            <form class="form"  name="creditform" method="post" action="#" >
 
@@ -259,30 +259,30 @@ EOF;
 
                 <label > Booking date :</label>
                 <?php echo( $date = date('Y-m-d')); ?> <br><br>
-               
+
 
 
                 <label  for="TravelerCount"> Number of Travelers  :</label>
                 <input  id="TravelerCount" type="number" min="1" step="1" name="TravelerCount" >  <br><br>
 
 
-                
+
                 <label for="CCName" > Credit card name :</label>
                 <input type="radio"   id="CCName" name="CCName" value="AMEX"/>AMEX
                 <input type="radio"   name="CCName" value="VISA"/>VISA
                 <input type="radio"   name="CCName" value="Mastercard"/>Mastercard
-                
+
                 <br><br>
 
                 <label  for="CCNumber"> Credit card number  :</label>
                 <input  id="CCNumber" type="text" name="CCNumber"  >  <br><br>
-           
-                <label for="CCExpiry">Expire date  :</label>   
-                         
+
+                <label for="CCExpiry">Expire date  :</label>
+
                 <table style="margin: -27px  100px" >
 
                     <tr>
-                          <td >   
+                          <td >
                                <select id="month" name="month" value=''>
                                <option value='00'>Month</option>
                                <option value='01'>January</option>
@@ -301,7 +301,7 @@ EOF;
 
                           </td>
 
-                          <td >   
+                          <td >
 
                                <select id="date" name="date" >
                                <option value='00'>Date</option>
@@ -339,8 +339,8 @@ EOF;
                                </select>
 
                           </td>
-               
-                          <td>  
+
+                          <td>
 
                           <select id="year" name="year" >
                                <option value='00'>Year</option>
@@ -356,24 +356,24 @@ EOF;
                                <option value='2028'>2028</option>
                                <option value='2029'>2029</option>
                                <option value='2030'>2030</option>
-                         
+
                           </td>
                      </tr>
                 </table>
 
                 <br><br><br>
 
-             
-             
+
+
                 <input id="submitbtn" type="submit" name="submit" value="submit">
 
            </form>
 
-           
+
 
 <?php
        }
-       
+
        require_once('php/footer.php');
    ?>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -392,16 +392,16 @@ EOF;
            exit;
            }
            return $dbh;
-      }  
+      }
            function CloseDB($dbh){
            mysqli_close($dbh);
            }
-     
+
      ///////////////////////// function for insert credit card information /////////////////////////
            function CreditInsert($credit_data){
                $link = ConnectDB();
-      
-              
+
+
                $CreditName = $credit_data['CCName'];
                $CreditNumber = $credit_data['CCNumber'];
                $ExDate = $credit_data['CCExpiry'];
@@ -417,10 +417,10 @@ EOF;
 
                $sql = " INSERT INTO creditcards (CCName, CCNumber, CCExpiry, CustomerId)
                VALUES ('$CreditName','$CreditNumber','$ExDate','$CustomerId')";
-      
+
                $result = mysqli_query($link, $sql);
-      
-      
+
+
                CloseDB($link);
                return $result;
           }
@@ -443,20 +443,20 @@ EOF;
                $Bookdate = $book_data[0];
                $CustId = $book_data[1];
                $PacId = $book_data[2];
-               
+
                $sql = " INSERT INTO bookings (BookingDate, TravelerCount, CustomerId, PackageId)
                VALUES ('$Bookdate','$TRcount','$CustId','$PacId')";
-      
+
                $book = mysqli_query($link, $sql);
-      
-      
+
+
                CloseDB($link);
                return $book;
 
           }
 
 
-          
+
 
 
 //// $Email= $_POST[""]

@@ -38,7 +38,7 @@
         if (isset($_SESSION['loggedin-agentId-fn'])) {
           echo "Dear <em>".$_SESSION['loggedin-agentId-fn'][1]."</em>.<a href='logout.php' ><button class='btn btn-outline-secondary ml-4'>Logout</button></a></h3>";
         } else {
-          echo "Friend.<a href='login.php' ><button class='btn btn-outline-primary ml-4'>Login</button></a></h3>";
+          echo "Friend.<a href='customer-signin.php' ><button class='btn btn-outline-primary ml-4'>Login</button></a></h3>";
         }
        ?>
   </div>

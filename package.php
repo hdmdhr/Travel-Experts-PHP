@@ -1,11 +1,11 @@
 <?php
 /*****************************************
- * 
- * Author: Liming Hong 
- * Date: February 13, 2019 
- * Purpose: This is the add package list for travel Agency website  
- * 
- ****************************************/ 
+ *
+ * Author: Liming Hong
+ * Date: February 13, 2019
+ * Purpose: This is the add package list for travel Agency website
+ *
+ ****************************************/
 
  include_once("php/function.php");
  $packages = GetPackage();
@@ -47,8 +47,8 @@ Please select your travelling ticket
         $name = $pack->getPkName();
         $sDate = $pack->getPkStartDate();
         $eDate =$pack->getPkEndDate();
-        $des=$pack->getPkDesc();
-        $price=$pack->getPkBasePrice();
+        $des = $pack->getPkDesc();
+        $price = $pack->getPkBasePrice();
       print("<tr>");
       print("<td class='tdpackage'>". $id ."</td>");
       print("<td class='tdpackage'>". $name ."</td>");
@@ -64,7 +64,7 @@ Please select your travelling ticket
 
       }
 
-    
+
 
   ?>
   </table>

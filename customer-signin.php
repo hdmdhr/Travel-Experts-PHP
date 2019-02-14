@@ -36,6 +36,8 @@ if ($_POST) {
     checkTryTimes($_SESSION['try-times']['try']);
   }
 
+  // TODO: ----- Check if there is a agent or customer already loggedin -----
+
   // ---- Validate user name and pin using database ----
 
   include_once('php/function.php');
@@ -71,8 +73,8 @@ if ($_POST) {
 
   }
 
-} else { 
-  // echo "No post received."; 
+} else {
+  // echo "No post received.";
 }
 
  ?>

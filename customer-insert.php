@@ -80,10 +80,14 @@ $tableName = 'customers';
 if (insertObjIntoDBTable($customerObj, $travel_experts, $tableName)) {
     echo "<h2>Congratulations, <em>".$_POST['firstName']."!</em> You are successfully registered.";
 } else {
-    echo "<h2>Couldn't complete signup due to some issue.";
+    echo "<h2 class='alert alert-danger'>Sorry! The username is already used.";
+    // if cannot insert into database, save the filled data in session
+    session_start();
+    $_SESSION['errorMsg'] = $errorMsg;
+    $_SESSION['invalidated_post'] = $_POST;
 }
 // create a button to go back to agent entry page
-echo "<a href='new-agent.php' ><button class='btn btn-outline-secondary ml-4'>Go Back</button></a></h2>";
+echo "<a href='customer-signup.php' ><button class='btn btn-outline-secondary ml-4'>Go Back</button></a></h2>";
 
 ?>
 

@@ -17,10 +17,6 @@ function insertObjIntoDBTable(object $obj, $database, $tableName) {
   $vPlaceholders = implode(',', array_fill(0,count($fieldsArray),'?'));  // get ?,?,?,?,?,?,?,?
   $fieldsType = get_class($obj)::$fieldsType;  // get 'ssiissss'
   $values = array_values(get_object_vars($obj));  // put $obj properties values into a num array, * only public properties
-  echo $fields."<hr>";
-  echo $vPlaceholders."<hr>";
-  echo $fieldsType."<hr>";
-  print_r($values);
 
   $insertSQL = "INSERT INTO $tableName ($fields) VALUES ($vPlaceholders)";
 

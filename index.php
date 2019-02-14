@@ -54,13 +54,13 @@
   <aside class="side-bar">
     <ul>
       <a href="">
-        <li>See Gallery</li>
+        <li class="sidebar-see">See Gallery</li>
       </a>
       <a href="">
-        <li>Register Now</li>
+        <li class="sidebar-signup">Signup Now</li>
       </a>
       <a href="">
-        <li>Contact Us</li>
+        <li class="sidebar-contact">Contact Us</li>
       </a>
     </ul>
   </aside>

@@ -120,16 +120,16 @@ if (title === 'Travel Experts' || title === 'Customer Signup') {
   $('aside ul li').mouseover(function(event) {
     $('aside ul li').css('background-color', 'RGBA(189, 183, 107, 0.25)');
     this.style.backgroundColor = 'RGBA(189, 183, 107, 0.75)';
-    switch (this.textContent) {
-      case 'See Gallery':
+    switch (this.classList[0]) {
+      case 'sidebar-see':
         $('.hide').css('display', 'none');
         $('#carousel').css('display', 'block');
         break;
-      case 'Register Now':
+      case 'sidebar-signup':
         $('.hide').css('display', 'none');
         $('#form').css('display', 'block');
         break;
-      case 'Contact Us':
+      case 'sidebar-contact':
         $('.hide').css('display', 'none');
         $('#table').css('display', 'table');
         break;
@@ -217,7 +217,7 @@ if (document.getElementById("bodybooking")){
    var errorYear = document.getElementById("erroryear");
 
    var errorTraveler = document.getElementById("errortraveler");
-   
+
 
 
 
@@ -228,7 +228,7 @@ if (document.getElementById("bodybooking")){
     errorCNum.style.display = "none";
     errorMonth.style.display = "none";
     errorDate.style.display = "none";
-    errorYear.style.display = "none"; 
+    errorYear.style.display = "none";
     correctcnum.style.display="none";
 
     errorTraveler.style.display="none";
@@ -251,7 +251,7 @@ if (document.getElementById("bodybooking")){
   }
 
 
-    
+
 
 
    var radios = document.getElementsByName("CCName");  //// credit card name validation
@@ -299,7 +299,7 @@ if (document.getElementById("bodybooking")){
 
 
 
- 
+
 
 
 
