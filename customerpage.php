@@ -4,7 +4,7 @@ if(session_id() == '' || !isset($_SESSION)) {
 }
 
 $userID= $_SESSION['user-id'];
-$dbh= new mySqli("localhost", "admin"l "agent","travelexperts.php");;
+$dbh= new mySqli("localhost", "admin", "agent","travelexperts.php");
 
 
 $result = $

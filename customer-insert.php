@@ -4,11 +4,12 @@
  * Author: PLDM Team 2
  * Date: Feb. 14, 2019
  * Course: CPRG 216 Project
- * Description: agent entry form is posted to this page, and validated here
+ * Description: customer signup form is posted to this page, and validated here
  *
  **************************/
 
 if (isset($_POST)) {
+    print_r($_POST);
 
     $errorMsg = '';
     foreach ($_POST as $inputName => $inputValue) {
@@ -18,7 +19,7 @@ if (isset($_POST)) {
         }
     }
 
-    if ($_POST['AgtPassword'] !== $_POST['pinConfirm']) {
+    if ($_POST['CustPassword'] !== $_POST['pinConfirm']) {
         // if two pins don't match, add error message
         $errorMsg .= "Password confirmation doesn't match password.<br>";
     } else {
@@ -31,7 +32,7 @@ if (isset($_POST)) {
         session_start();
         $_SESSION['errorMsg'] = $errorMsg;
         $_SESSION['invalidated_post'] = $_POST;
-        header("Location: http://localhost/PLDM-Team-2/new-agent.php");
+        header("Location: http://localhost/PLDM-Team-2/customer-signup.php");
     }
 
 }
@@ -44,7 +45,7 @@ if (isset($_POST)) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Agent Inserted Into Database</title>
+  <title>Customer Signed Up</title>
   <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900|Raleway:400,700,700i,900" rel="stylesheet">
   <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="css/main.css">
@@ -67,17 +68,19 @@ if (!$travel_experts) {
 include_once 'php/function.php';
 include_once 'php/classes.php';
 
+unset($_POST['age']);  // do not need age for database
 $postValueArray = array_values($_POST);
 print_r($postValueArray);
 
-$agentObj = new Agent(...$postValueArray);
+$customerObj = new Customer(...$postValueArray);
+// var_dump($customerObj);
 
 // ---- New: insert object into database ---
-$tableName = 'agents';
-if (insertObjIntoDBTable($agentObj, $travel_experts, $tableName)) {
-    echo "<h2>Great! Agent <em>" . $_POST['AgtFirstName'] . "</em>'s info was inserted into table <em>$tableName</em>.";
+$tableName = 'customers';
+if (insertObjIntoDBTable($customerObj, $travel_experts, $tableName)) {
+    echo "<h2>Congratulations, <em>".$_POST['firstName']."!</em> You are successfully registered.";
 } else {
-    echo "<h2>Couldn't insert agent information.";
+    echo "<h2>Couldn't complete signup due to some issue.";
 }
 // create a button to go back to agent entry page
 echo "<a href='new-agent.php' ><button class='btn btn-outline-secondary ml-4'>Go Back</button></a></h2>";
