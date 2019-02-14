@@ -1,4 +1,12 @@
 <?php
+/*****************************************
+ * 
+ * Author: Liming Hong 
+ * Date: February 13, 2019 
+ * Purpose: This is the add package list for travel Agency website  
+ * 
+ ****************************************/ 
+
  include_once("php/function.php");
  $packages = GetPackage();
 
@@ -35,22 +43,28 @@ Please select your travelling ticket
 );
       $i = 0;
       foreach ($packages as $pack) {
+        $id = $pack->getId();
+        $name = $pack->getPkName();
+        $sDate = $pack->getPkStartDate();
+        $eDate =$pack->getPkEndDate();
+        $des=$pack->getPkDesc();
+        $price=$pack->getPkBasePrice();
       print("<tr>");
-      print("<td class='tdpackage'>". $pack->getId() ."</td>");
-      print("<td class='tdpackage'>". $pack->getPkName() ."</td>");
-      print("<td class='tdpackage'>". $pack->getPkStartDate() ."</td>");
-      print("<td class='tdpackage'>". $pack->getPkEndDate() ."</td>");
-      print("<td class='tdpackage'>". $pack->getPkDesc() ."</td>");
-      print("<td class='tdpackage'>". $pack->getPkBasePrice() ."</td>");
+      print("<td class='tdpackage'>". $id ."</td>");
+      print("<td class='tdpackage'>". $name ."</td>");
+      print("<td class='tdpackage'>". $sDate ."</td>");
+      print("<td class='tdpackage'>".  $eDate ."</td>");
+      print("<td class='tdpackage'>". $des ."</td>");
+      print("<td class='tdpackage'>". $price ."</td>");
 
       print("<td><img src=".$array1[$i]." class='packageImg'></td>");
-      print("<td><a href='booking.php' alt='picture'><button class='btn btn-primary'>Order Now!</button></button>");
+      print("<td><a href='booking.php? id=$id&name=$name&sDate=$sDate&eDate=$eDate&des=$des&price=$price' alt='picture'><button class='btn btn-primary'>Order Now!</button></button>");
       $i++;
       print("</tr>");
 
       }
 
-
+    
 
   ?>
   </table>

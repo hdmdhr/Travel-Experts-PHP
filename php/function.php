@@ -81,7 +81,7 @@ function ConnectDB(){
 function CloseDB($link){
   mysqli_close($link);
 }
-
+////////////Liming////////////////
 // function to get
 function GetPackage() {
   include_once("classes.php");
@@ -120,4 +120,5 @@ function GetPackage() {
   return $packages; // this is an array of package objects
 
 }
+////////////Liming////////////////
  ?>
