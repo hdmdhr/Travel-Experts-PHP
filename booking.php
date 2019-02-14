@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
-
+<!-- Mahda Kazemian
+ PROJ-207-OSD - 
+ Threaded Project for OOSD
+ Feb 14,2019
+ team 2
+-->
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,7 +28,6 @@
   h5{ 
      color:blue;
      font-weight:bold; 
-
     }
 
   p {
@@ -41,15 +45,6 @@
  ?>
 
 <?php
-
-
-////////////Liming////////////////
-if (isset($_GET)) {
- print("<h3 class='booking_detail'><strong>Order:</strong> package# : ".$_GET['id'].".  ".$_GET['name']." from ".$_GET['sDate']." to ".$_GET['eDate']." enjoy the ".$_GET['des']."  with Price:  $ ".$_GET['price'].".</h3>");
-}
-////////////Liming////////////////
-
-
 
 
 
@@ -119,9 +114,30 @@ if (isset($_GET)) {
            if ($result){
                 
                 print("<h4>Your package was successfully booked.</h4>");
-          
                 $date = date('Y-m-d  ,  H:i:s');
                 print("<h5> Booking date : " . $date . "</h5> <br><br>");
+
+                if (isset($_GET)) {
+                    //print("<h3 class='booking_detail'><strong>Order:</strong>  ".$_GET['id'].".  ".$_GET['name']." from ".$_GET['sDate']." to ".$_GET['eDate']." enjoy the ".$_GET['des']."  with Price:  $ ".$_GET['price'].".</h3>");
+                          
+                          echo "<table class='table'>";
+                              echo " <thead><tr>
+                                    <th colspan='2'>Booking Summary</th>
+                                    </tr></thead>";
+                              echo "<tr>
+                                        <td><em>Package number :</em> " .$_GET['id']."</td>
+                                        <td><em>Destination : </em>" .$_GET['name']."</td>
+                                   </tr> ";
+                              echo "<tr>
+                                        <td><em>Start date : </em>" .$_GET['sDate']."</td>
+                                        <td><em> End date : </em>" .$_GET['eDate']."</td>
+                                    </tr>";
+                              echo"<tr>
+                                        <td><em>".$_GET['des']."</em></td>
+                                        <td><em>Price :</em> " .$_GET['price']."</td>
+                                   </tr>";
+                              echo "</table>";
+                   }
 
            
                 } else {
@@ -239,8 +255,10 @@ EOF;
      ?>
           <br><br>
 
-          
 
+
+
+          
            <br><br>
            <p id="errorcname" class="bookerror" style="display:none;"> Credit name is required to be filled!</p>
            <p id="errorcnum" class="bookerror" style="display:none;"> Credit number is required to be filled!</p>
@@ -256,17 +274,25 @@ EOF;
            <form class="form"  name="creditform" method="post" action="#" >
 
 
+                
 
                 <label > Booking date :</label>
-                <?php echo( $date = date('Y-m-d')); ?> <br><br>
-               
+                <?php echo( $date = date('Y-m-d')); ?> <br><br> <!-- show booking date-->
 
+
+                <label>Booking price :</label>   <!-- show booking price -->
+                <?php   
+                     if(isset($_GET)) {
+                          echo ("$ " .$_GET['price']);    
+                  }
+
+                ?>
+                <br><br>
 
                 <label  for="TravelerCount"> Number of Travelers  :</label>
                 <input  id="TravelerCount" type="number" min="1" step="1" name="TravelerCount" >  <br><br>
 
-
-                
+ 
                 <label for="CCName" > Credit card name :</label>
                 <input type="radio"   id="CCName" name="CCName" value="AMEX"/>AMEX
                 <input type="radio"   name="CCName" value="VISA"/>VISA
@@ -283,7 +309,7 @@ EOF;
 
                     <tr>
                           <td >   
-                               <select id="month" name="month" value=''>
+                               <select id="month" name="month" value=''> 
                                <option value='00'>Month</option>
                                <option value='01'>January</option>
                                <option value='02'>February</option>
@@ -436,9 +462,14 @@ EOF;
                $CustomerId = $row['CustomerId'];
                }
 
+
+              //if (isset($_GET)) {
+             //  $PackageId = $_GET['id'];
+             // }
+
                $TRcount= $credit_data["TravelerCount"];
                $BookingDate = date('Y-m-d');
-               $PackageId = $_GET['ID'];
+               $PackageId = $_GET['id'];
                $book_data = array ("$BookingDate", "$CustomerId", "$PackageId");
                $Bookdate = $book_data[0];
                $CustId = $book_data[1];
