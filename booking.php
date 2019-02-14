@@ -42,6 +42,12 @@
 
 <?php
 
+
+ if(session_id() == '' || !isset($_SESSION)) {
+     session_start();  // if session isn't start, start it
+ }
+
+
 ////Mahda/////
 
 ////////////validation for each part of the credit card form///////////
@@ -394,14 +400,14 @@ EOF;
                $CreditName = $credit_data['CCName'];
                $CreditNumber = $credit_data['CCNumber'];
                $ExDate = $credit_data['CCExpiry'];
-
-
-               $Email= "pradicola@home.com";
-               $CustId = mysqli_query($link,"SELECT * FROM `customers` WHERE `CustEmail` LIKE '%$Email%'");
-               while ($row = mysqli_fetch_array($CustId))
-               {
-               $CustomerId = $row['CustomerId'];
-               }
+               $CustomerId ="104";
+               
+               //$Email= "pradicola@home.com";
+              // $CustId = mysqli_query($link,"SELECT * FROM `customers` WHERE `CustEmail` LIKE '%$Email%'");
+              // while ($row = mysqli_fetch_array($CustId))
+              // {
+              // $CustomerId = $row['CustomerId'];
+              // }
 
 
                $sql = " INSERT INTO creditcards (CCName, CCNumber, CCExpiry, CustomerId)
@@ -427,7 +433,7 @@ EOF;
 
                $TRcount= $credit_data["TravelerCount"];
                $BookingDate = date('Y-m-d');
-               $PackageId = "2";
+               $PackageId = $_GET['ID'];
                $book_data = array ("$BookingDate", "$CustomerId", "$PackageId");
                $Bookdate = $book_data[0];
                $CustId = $book_data[1];
