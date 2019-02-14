@@ -28,6 +28,10 @@ h1 {
   margin: 2rem;
   vertical-align: middle;
 }
+.package_head {
+  font: 550 2rem 'Lato', sans-serif; 
+
+}
 
 .logo-line {
   margin: 2rem;

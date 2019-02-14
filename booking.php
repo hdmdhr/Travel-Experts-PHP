@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
-
+<!-- Mahda Kazemian
+ PROJ-207-OSD -
+ Threaded Project for OOSD
+ Feb 14,2019
+ team 2
+-->
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -41,15 +46,6 @@
  ?>
 
 <?php
-
-
-////////////Liming////////////////
-if (isset($_GET)) {
- print("<h3 class='booking_detail'><strong>Order:</strong> package# : ".$_GET['id'].".  ".$_GET['name']." from ".$_GET['sDate']." to ".$_GET['eDate']." enjoy the ".$_GET['des']."  with Price:  $ ".$_GET['price'].".</h3>");
-}
-////////////Liming////////////////
-
-
 
 
 
@@ -119,9 +115,30 @@ if (isset($_GET)) {
            if ($result){
 
                 print("<h4>Your package was successfully booked.</h4>");
-
                 $date = date('Y-m-d  ,  H:i:s');
                 print("<h5> Booking date : " . $date . "</h5> <br><br>");
+
+                if (isset($_GET)) {
+                    //print("<h3 class='booking_detail'><strong>Order:</strong>  ".$_GET['id'].".  ".$_GET['name']." from ".$_GET['sDate']." to ".$_GET['eDate']." enjoy the ".$_GET['des']."  with Price:  $ ".$_GET['price'].".</h3>");
+
+                          echo "<table class='table'>";
+                              echo " <thead><tr>
+                                    <th colspan='2'>Booking Summary</th>
+                                    </tr></thead>";
+                              echo "<tr>
+                                        <td><em>Package number :</em> " .$_GET['id']."</td>
+                                        <td><em>Destination : </em>" .$_GET['name']."</td>
+                                   </tr> ";
+                              echo "<tr>
+                                        <td><em>Start date : </em>" .$_GET['sDate']."</td>
+                                        <td><em> End date : </em>" .$_GET['eDate']."</td>
+                                    </tr>";
+                              echo"<tr>
+                                        <td><em>".$_GET['des']."</em></td>
+                                        <td><em>Price :</em> " .$_GET['price']."</td>
+                                   </tr>";
+                              echo "</table>";
+                   }
 
 
                 } else {
@@ -241,6 +258,8 @@ EOF;
 
 
 
+
+
            <br><br>
            <p id="errorcname" class="bookerror" style="display:none;"> Credit name is required to be filled!</p>
            <p id="errorcnum" class="bookerror" style="display:none;"> Credit number is required to be filled!</p>
@@ -257,14 +276,22 @@ EOF;
 
 
 
+
                 <label > Booking date :</label>
-                <?php echo( $date = date('Y-m-d')); ?> <br><br>
+                <?php echo( $date = date('Y-m-d')); ?> <br><br> <!-- show booking date-->
 
 
+                <label>Booking price :</label>   <!-- show booking price -->
+                <?php
+                     if(isset($_GET)) {
+                          echo ("$ " .$_GET['price']);
+                  }
+
+                ?>
+                <br><br>
 
                 <label  for="TravelerCount"> Number of Travelers  :</label>
                 <input  id="TravelerCount" type="number" min="1" step="1" name="TravelerCount" >  <br><br>
-
 
 
                 <label for="CCName" > Credit card name :</label>
@@ -405,14 +432,14 @@ EOF;
                $CreditName = $credit_data['CCName'];
                $CreditNumber = $credit_data['CCNumber'];
                $ExDate = $credit_data['CCExpiry'];
+               $CustomerId ="104";
 
-
-               $Email= "pradicola@home.com";
-               $CustId = mysqli_query($link,"SELECT * FROM `customers` WHERE `CustEmail` LIKE '%$Email%'");
-               while ($row = mysqli_fetch_array($CustId))
-               {
-               $CustomerId = $row['CustomerId'];
-               }
+               //$Email= "pradicola@home.com";
+              // $CustId = mysqli_query($link,"SELECT * FROM `customers` WHERE `CustEmail` LIKE '%$Email%'");
+              // while ($row = mysqli_fetch_array($CustId))
+              // {
+              // $CustomerId = $row['CustomerId'];
+              // }
 
 
                $sql = " INSERT INTO creditcards (CCName, CCNumber, CCExpiry, CustomerId)
@@ -436,9 +463,14 @@ EOF;
                $CustomerId = $row['CustomerId'];
                }
 
+
+              //if (isset($_GET)) {
+             //  $PackageId = $_GET['id'];
+             // }
+
                $TRcount= $credit_data["TravelerCount"];
                $BookingDate = date('Y-m-d');
-               $PackageId = "2";
+               $PackageId = $_GET['id'];
                $book_data = array ("$BookingDate", "$CustomerId", "$PackageId");
                $Bookdate = $book_data[0];
                $CustId = $book_data[1];
