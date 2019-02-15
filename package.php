@@ -32,7 +32,7 @@
 <h1 class= "h1 package_head">Choose Your Favourite Travel Package!</h1>
 
   <table class="table package-table">
-  
+
   <?php
 
   $array1=array(
@@ -75,10 +75,9 @@
         if(session_id() == '' || !isset($_SESSION)) {
           session_start();  // if session isn't start, start session
         }
-          
+
         if (isset($_SESSION['loggedin-id-fn'])) {
           // if there is already a signed in user, click button to booking page
-          echo "FUCKING SHIT";
           print("<td><a href='booking.php?id=$id&name=$name&sDate=$sDate&eDate=$eDate&des=$des&price=$price'>");
         } else {
           // if no signed in user, click button to signin page
