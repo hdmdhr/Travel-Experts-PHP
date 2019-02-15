@@ -21,9 +21,13 @@
 </head>
 
 <body>
-  <div class="veil">
   <?php
-    require_once('php/header.php')
+    require_once('php/header.php');
+
+    // if have any $_GET['alert'], show alert
+    if (isset($_GET['alert'])) {
+      echo "<h1 class='alert alert-danger'>".$_GET['alert']."</h1>";
+    }
    ?>
 
 
@@ -54,13 +58,16 @@
   <aside class="side-bar">
     <ul>
       <a href="">
-        <li>See Gallery</li>
+        <li class="sidebar-see">See Gallery</li>
       </a>
       <a href="">
-        <li>Register Now</li>
+        <li class="sidebar-signup">Signup Now</li>
       </a>
       <a href="">
-        <li>Contact Us</li>
+        <li class="sidebar-contact">Contact Us</li>
+      </a>
+      <a href="">
+        <li class="sidebar-links">Product Suppliers</li>
       </a>
     </ul>
   </aside>
@@ -126,7 +133,7 @@
     <?php include_once('php/register-form.php'); ?>
   </article>
 
-
+<article>
   <table id="table" class="table hide" style="display:none;">
     <thead>
       <tr>
@@ -164,12 +171,30 @@
       <td>Mei</td>
     </tr>
   </table>
+</article>
+
+<article id="links" class="table hide" style="display:none;">
+  <?php
+      require_once('php/var.php');
+
+      echo "<table class='table'>";
+
+      foreach ($var as $k => $v) {
+        echo "<tr>
+        <td><p>$v</p></td>
+        <td><a href='$k' target='_blank'><p>Go</p></a></td>
+        </tr>";
+      }
+
+      echo "</table>";
+     ?>
+</article>
+
 
 <?php
   require_once('php/footer.php');
  ?>
 
-</div>
 </body>
 
 </html>

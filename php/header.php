@@ -35,10 +35,10 @@
           echo "<img src='img/home.png' class='mx-2'>Good Evening ";
         }
         // TODO: if logged in, say the name in session['loggedin-agentId-fn']
-        if (isset($_SESSION['loggedin-agentId-fn'])) {
-          echo "Dear <em>".$_SESSION['loggedin-agentId-fn'][1]."</em>.<a href='logout.php' ><button class='btn btn-outline-secondary ml-4'>Logout</button></a></h3>";
+        if (isset($_SESSION['loggedin-id-fn'])) {
+          echo "Dear ".$_SESSION['loggedin-id-fn'][0]." <em>".$_SESSION['loggedin-id-fn'][2]."</em>.<a href='logout.php' ><button class='btn btn-outline-secondary ml-4'>Logout</button></a></h3>";
         } else {
-          echo "Friend.<a href='login.php' ><button class='btn btn-outline-primary ml-4'>Login</button></a></h3>";
+          echo "Friend.<a href='customer-signin.php'><button class='btn btn-outline-primary ml-4'>Login</button></a></h3>";
         }
        ?>
   </div>

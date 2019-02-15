@@ -1,14 +1,14 @@
 <?php
 /**************************
 *
-* Author: DongMing Hu
-* Date: Feb. 11, 2019
-* Course: CPRG 210 PHP
+ * Author: PLDM Team 2
+ * Date: Feb. 14, 2019
+ * Course: CPRG 216 Project
 * Description: include two generic functions, insert object into database table, insert array into database table.
 *
 **************************/
 
-// ---- Generic Function: insert object into database (OOP) ----
+// ----- DongMing: Generic Function - insert an object into database -----
 
 function insertObjIntoDBTable(object $obj, $database, $tableName) {
 
@@ -17,10 +17,6 @@ function insertObjIntoDBTable(object $obj, $database, $tableName) {
   $vPlaceholders = implode(',', array_fill(0,count($fieldsArray),'?'));  // get ?,?,?,?,?,?,?,?
   $fieldsType = get_class($obj)::$fieldsType;  // get 'ssiissss'
   $values = array_values(get_object_vars($obj));  // put $obj properties values into a num array, * only public properties
-  echo $fields."<hr>";
-  echo $vPlaceholders."<hr>";
-  echo $fieldsType."<hr>";
-  print_r($values);
 
   $insertSQL = "INSERT INTO $tableName ($fields) VALUES ($vPlaceholders)";
 
@@ -37,7 +33,7 @@ function insertObjIntoDBTable(object $obj, $database, $tableName) {
   return $bool;
 }
 
-// ---- Query data from database ----
+// ----- DongMing: Generic Function - Query data from database -----
 
 function queryDataArrayFromDatabase($sql,$database){
   $rowArray = array();
@@ -53,13 +49,13 @@ function queryDataArrayFromDatabase($sql,$database){
 
 
 
-// ---- Old Function: insert array into database (Procedural) ----
+// ----- DongMing: Generic Function - insert array into database -----
 
-function insertArrayIntoDBTable(array $agentsArray, $database, $tableName){
-
-  foreach ($agentsArray as $k => $v) {
+function insertAssocArrayIntoDBTable(array $assocArray, $database, $tableName){
+  // pass in a associative array, keys are fields name of database table, values are value you want to insert
+  foreach ($assocArray as $k => $v) {
     $fields[] = $k;
-    $values[] = "'".$v."'";  // have to wrap value for insertion in single quote ''
+    $values[] = "'".$v."'";  // have to wrap value in single quote '' for insertion
   }
   $fields = implode(",", $fields);
   $values = implode(",", $values);
@@ -71,8 +67,9 @@ function insertArrayIntoDBTable(array $agentsArray, $database, $tableName){
   return $result;
 }
 
+////////////Liming////////////////
 
-// connect to database
+// function: connect to database
 function ConnectDB(){
   $link = new mysqli("localhost", "admin", "P@ssw0rd", "travelexperts");
   if ($link->connect_errno){
@@ -81,12 +78,13 @@ function ConnectDB(){
   }
   return $link;
 }
+
 // close the datebase
 function CloseDB($link){
   mysqli_close($link);
 }
-////////////Liming////////////////
-// function to get
+
+// function: get package info
 function GetPackage() {
   include_once("classes.php");
   $dbh = ConnectDB();

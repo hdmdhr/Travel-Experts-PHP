@@ -29,17 +29,9 @@
 
 </article>
 
-<hr>
-
-<footer>
-  <p class="copyright">&copy; DongMing Hu 2019</p>
-  <p class="company">&reg; Little Bit Everything 2018-2019</p>
-</footer>
-
-
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="script.js" charset="utf-8"></script>
+<?php
+  include_once('php/footer.php');
+ ?>
 </body>
 
 </html>

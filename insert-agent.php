@@ -9,17 +9,18 @@
  **************************/
 
 if (isset($_POST)) {
+    // if received a post, do validation: 1.check if any input is empty, 2.check if password confirmation mathches password, 3.if any of the above happened, save error message and the invalidated post into session, head back to form page
 
     $errorMsg = '';
     foreach ($_POST as $inputName => $inputValue) {
         if (empty($inputValue)) {
-            // if any input empty, add error and old data,
+            // if any input empty, update error message
             $errorMsg .= "Need a valid <em>" . $inputName . ".</em><br>";
         }
     }
 
     if ($_POST['AgtPassword'] !== $_POST['pinConfirm']) {
-        // if two pins don't match, add error message
+        // if two pins don't match, update error message
         $errorMsg .= "Password confirmation doesn't match password.<br>";
     } else {
         // if two pins match, remove the pinConfirm from $_POST
@@ -32,6 +33,7 @@ if (isset($_POST)) {
         $_SESSION['errorMsg'] = $errorMsg;
         $_SESSION['invalidated_post'] = $_POST;
         header("Location: http://localhost/PLDM-Team-2/new-agent.php");
+        exit;
     }
 
 }
@@ -53,35 +55,29 @@ if (isset($_POST)) {
 <body>
 
 <?php
+echo "<h1>This should not be seen if form is invalidated.</h1>";
+// validation past, collect data from post and insert into database: 1.include insert func, 2.connect database, 3.use $_POST to create obj, 4.pass obj into insert func, 5.print succeed or fail.
 include_once 'php/menu.php';
-
-// 1.connect database, 2.include insert func, 3.use $_POST to create obj, 4.pass obj into insert func, 5.print succeed or fail.
-
-$travel_experts = mysqli_connect("localhost", "admin", "P@ssw0rd", "travelexperts");
-if (!$travel_experts) {
-    echo "Error number:" . mysqli_connect_errno() . PHP_EOL;
-    echo "Error message:" . mysqli_connect_error() . PHP_EOL;
-    exit;
-}
-
 include_once 'php/function.php';
 include_once 'php/classes.php';
 
+$travel_experts = ConnectDB();
+
 $postValueArray = array_values($_POST);
-print_r($postValueArray);
 
 $agentObj = new Agent(...$postValueArray);
 
-// ---- New: insert object into database ---
+// ----- insert new agent object into database -----
 $tableName = 'agents';
 if (insertObjIntoDBTable($agentObj, $travel_experts, $tableName)) {
     echo "<h2>Great! Agent <em>" . $_POST['AgtFirstName'] . "</em>'s info was inserted into table <em>$tableName</em>.";
 } else {
-    echo "<h2>Couldn't insert agent information.";
+    echo "<h2>The username you input is already used.";
 }
 // create a button to go back to agent entry page
 echo "<a href='new-agent.php' ><button class='btn btn-outline-secondary ml-4'>Go Back</button></a></h2>";
 
+include_once('php/footer.php');
 ?>
 
 </body>

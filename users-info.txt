@@ -1,4 +1,0 @@
-hdmdhr,85936560
-821312,password
-admin,P@ssw0rd
-happy,1@2@3

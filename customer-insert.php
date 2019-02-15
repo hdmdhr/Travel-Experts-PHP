@@ -4,12 +4,11 @@
  * Author: PLDM Team 2
  * Date: Feb. 14, 2019
  * Course: CPRG 216 Project
- * Description: customer signup form is posted to this page, and validated here
+ * Description: customer signup form is posted to this page, and validated here, and inserted into database, print success or not
  *
  **************************/
 
 if (isset($_POST)) {
-    print_r($_POST);
 
     $errorMsg = '';
     foreach ($_POST as $inputName => $inputValue) {
@@ -33,6 +32,7 @@ if (isset($_POST)) {
         $_SESSION['errorMsg'] = $errorMsg;
         $_SESSION['invalidated_post'] = $_POST;
         header("Location: http://localhost/PLDM-Team-2/customer-signup.php");
+        exit;
     }
 
 }
@@ -70,7 +70,6 @@ include_once 'php/classes.php';
 
 unset($_POST['age']);  // do not need age for database
 $postValueArray = array_values($_POST);
-print_r($postValueArray);
 
 $customerObj = new Customer(...$postValueArray);
 // var_dump($customerObj);
@@ -80,11 +79,16 @@ $tableName = 'customers';
 if (insertObjIntoDBTable($customerObj, $travel_experts, $tableName)) {
     echo "<h2>Congratulations, <em>".$_POST['firstName']."!</em> You are successfully registered.";
 } else {
-    echo "<h2>Couldn't complete signup due to some issue.";
+    echo "<h2 class='alert alert-danger'>Sorry! The username is already used.";
+    // if cannot insert into database, save the filled data in session
+    session_start();
+    $_SESSION['errorMsg'] = $errorMsg;
+    $_SESSION['invalidated_post'] = $_POST;
 }
 // create a button to go back to agent entry page
-echo "<a href='new-agent.php' ><button class='btn btn-outline-secondary ml-4'>Go Back</button></a></h2>";
+echo "<a href='customer-signup.php' ><button class='btn btn-outline-secondary ml-4'>Go Back</button></a></h2>";
 
+include_once 'php/footer.php';
 ?>
 
 </body>
