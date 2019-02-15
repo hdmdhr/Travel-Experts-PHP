@@ -11,7 +11,7 @@ switch (title) {
     $('.contact')[0].classList.add('nav-tab-current');
     break;
   case 'Customer Signup':
-    $('#cust-signup')[0].classList.add('nav-tab-current');
+    $('#customer-tab')[0].classList.add('nav-tab-current');
     break;
   case 'Famous Spots':
     $('.spots')[0].classList.add('nav-tab-current');

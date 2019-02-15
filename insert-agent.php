@@ -68,7 +68,6 @@ include_once 'php/function.php';
 include_once 'php/classes.php';
 
 $postValueArray = array_values($_POST);
-print_r($postValueArray);
 
 $agentObj = new Agent(...$postValueArray);
 
@@ -77,11 +76,12 @@ $tableName = 'agents';
 if (insertObjIntoDBTable($agentObj, $travel_experts, $tableName)) {
     echo "<h2>Great! Agent <em>" . $_POST['AgtFirstName'] . "</em>'s info was inserted into table <em>$tableName</em>.";
 } else {
-    echo "<h2>Couldn't insert agent information.";
+    echo "<h2>The username you input is already used.";
 }
 // create a button to go back to agent entry page
 echo "<a href='new-agent.php' ><button class='btn btn-outline-secondary ml-4'>Go Back</button></a></h2>";
 
+include_once('php/footer.php');
 ?>
 
 </body>

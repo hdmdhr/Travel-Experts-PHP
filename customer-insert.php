@@ -9,7 +9,6 @@
  **************************/
 
 if (isset($_POST)) {
-    print_r($_POST);
 
     $errorMsg = '';
     foreach ($_POST as $inputName => $inputValue) {
@@ -70,7 +69,6 @@ include_once 'php/classes.php';
 
 unset($_POST['age']);  // do not need age for database
 $postValueArray = array_values($_POST);
-print_r($postValueArray);
 
 $customerObj = new Customer(...$postValueArray);
 // var_dump($customerObj);
@@ -89,6 +87,7 @@ if (insertObjIntoDBTable($customerObj, $travel_experts, $tableName)) {
 // create a button to go back to agent entry page
 echo "<a href='customer-signup.php' ><button class='btn btn-outline-secondary ml-4'>Go Back</button></a></h2>";
 
+include_once('php/footer.php');
 ?>
 
 </body>

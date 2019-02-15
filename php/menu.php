@@ -21,7 +21,7 @@
     <a href="package.php" target="_blank"><img src="img/package.png" alt="Packages">Packages</a>
   </div>
 
-  <div class="nav-tab dropdown col-sm-6 col-md-4 col-lg-2">
+  <div class="nav-tab dropdown col-sm-6 col-md-4 col-lg-2" id="customer-tab">
     <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><img src="img/customer.png" alt="Register">Customer</a>
     <div class="dropdown-menu">
       <a class="dropdown-item" href="customer-signup.php">Signup</a>

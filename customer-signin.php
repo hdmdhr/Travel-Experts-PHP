@@ -51,11 +51,7 @@ if ($_POST) {
   } else {
     // if there is a row in database match user name, extract password, id, and first name values for future use
     $savedPin = queryDataArrayFromDatabase($sql,$travelExperts)[0]['CustPassword'];
-
-
     $custId = queryDataArrayFromDatabase($sql,$travelExperts)[0]['CustomerId'];
-
-    
     $custFirstName = queryDataArrayFromDatabase($sql,$travelExperts)[0]['CustFirstName'];
 
     if (password_needs_rehash($savedPin,PASSWORD_DEFAULT)) {
@@ -72,7 +68,7 @@ if ($_POST) {
     } else {
       // if passwords match, save user id and first name in a session, head to customer account page
       $_SESSION['loggedin-custId-fn'] = array($custId, $custFirstName);
-      header("Location: http://localhost/PLDM-Team-2/customerpage.php");
+      header("Location: http://localhost/PLDM-Team-2/customerbody.php");
     }
 
   }

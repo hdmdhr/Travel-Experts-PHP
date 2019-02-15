@@ -44,17 +44,17 @@ Please select your travelling ticket
     "img/Japan.jpg",
     "img/China.jpg"
 );
-print("<tr>");
-      print("<td class='tdpackage'>Package ID</td>");
-      print("<td class='tdpackage'>Place to visit</td>");
-      print("<td class='tdpackage'>Start Date</td>");
-      print("<td class='tdpackage'>End Date</td>");
-      print("<td class='tdpackage'>Description</td>");
-      print("<td class='tdpackage'>Price</td>");
-      print("<td class='packageImg''>Local scenery</td>");
-      print("<td class='tdpackage'>Click to Order!</td>");
+print("<thead><tr>");
+      print("<th class='tdpackage'>Package ID</th>");
+      print("<th class='tdpackage'>Package Name</th>");
+      print("<th class='tdpackage'>Start Date</th>");
+      print("<th class='tdpackage'>End Date</th>");
+      print("<th class='tdpackage'>Description</th>");
+      print("<th class='tdpackage'>Price</th>");
+      print("<th class='packageImg''>Local scenery</th>");
+      print("<th class='tdpackage'>Click to Order!</th>");
 
-      print("</tr>");
+      print("</tr></thead>");
       $i = 0;
       foreach ($packages as $pack) {
         $id = $pack->getId();
