@@ -29,12 +29,10 @@
 <?php
     require_once('php/header.php')
    ?>
-<h1 class= "h1 package_head">
-Please select your travelling ticket
-</h1>
+<h1 class= "h1 package_head">Choose Your Favourite Travel Package!</h1>
 
-  <section>
   <table class="table package-table">
+  
   <?php
 
   $array1=array(
@@ -44,7 +42,8 @@ Please select your travelling ticket
     "img/Japan.jpg",
     "img/China.jpg"
 );
-print("<thead><tr>");
+
+      print("<thead><tr>");
       print("<th class='tdpackage'>Package ID</th>");
       print("<th class='tdpackage'>Package Name</th>");
       print("<th class='tdpackage'>Start Date</th>");
@@ -52,9 +51,9 @@ print("<thead><tr>");
       print("<th class='tdpackage'>Description</th>");
       print("<th class='tdpackage'>Price</th>");
       print("<th class='packageImg''>Local scenery</th>");
-      print("<th class='tdpackage'>Click to Order!</th>");
-
+      print("<th class='tdpackage'>Order</th>");
       print("</tr></thead>");
+
       $i = 0;
       foreach ($packages as $pack) {
         $id = $pack->getId();
@@ -63,26 +62,36 @@ print("<thead><tr>");
         $eDate =$pack->getPkEndDate();
         $des = $pack->getPkDesc();
         $price = $pack->getPkBasePrice();
-      print("<tr>");
-      print("<td class='tdpackage'>". $id ."</td>");
-      print("<td class='tdpackage'>". $name ."</td>");
-      print("<td class='tdpackage'>". $sDate ."</td>");
-      print("<td class='tdpackage'>".  $eDate ."</td>");
-      print("<td class='tdpackage'>". $des ."</td>");
-      print("<td class='tdpackage'>$". $price ."</td>");
 
-      print("<td class='packageImg'><img src=".$array1[$i]." class='packageImg'></td>");
-      print("<td><a href='booking.php? id=$id&name=$name&sDate=$sDate&eDate=$eDate&des=$des&price=$price' alt='picture'><button class='btn btn-primary'>Order Now!</button></button>");
-      $i++;
-      print("</tr>");
+        print("<tr>");
+        print("<td class='tdpackage'>". $id ."</td>");
+        print("<td class='tdpackage'>". $name ."</td>");
+        print("<td class='tdpackage'>". $sDate ."</td>");
+        print("<td class='tdpackage'>".  $eDate ."</td>");
+        print("<td class='tdpackage'>". $des ."</td>");
+        print("<td class='tdpackage'>$". $price ."</td>");
+        print("<td class='packageImg'><img src=".$array1[$i]." class='packageImg' alt='picture'></td>");
 
+        if(session_id() == '' || !isset($_SESSION)) {
+          session_start();  // if session isn't start, start session
+        }
+          
+        if (isset($_SESSION['loggedin-id-fn'])) {
+          // if there is already a signed in user, click button to booking page
+          echo "FUCKING SHIT";
+          print("<td><a href='booking.php?id=$id&name=$name&sDate=$sDate&eDate=$eDate&des=$des&price=$price'>");
+        } else {
+          // if no signed in user, click button to signin page
+          print("<td><a href='customer-signin.php?alert=Please sign in first before continue.'>");
+        }
+
+        print("<button class='btn btn-primary'>BOOK NOW!</button></a></td></tr>");
+
+        $i++;
       }
-
-
 
   ?>
   </table>
-</section>
 
 <?php
   require_once('php/footer.php');

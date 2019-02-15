@@ -10,7 +10,7 @@ switch (title) {
   case 'Contact Us':
     $('.contact')[0].classList.add('nav-tab-current');
     break;
-  case 'Customer Signup':
+  case 'Customer Signup': case 'Customer Signin':
     $('#customer-tab')[0].classList.add('nav-tab-current');
     break;
   case 'Famous Spots':
@@ -19,8 +19,8 @@ switch (title) {
   case 'Links':
     $('.links')[0].classList.add('nav-tab-current');
     break;
-  case 'Add New Agent':
-    $('.add-agent')[0].classList.add('nav-tab-current');
+  case 'Add New Agent': case'Agent Login':
+    $('#agent-tab')[0].classList.add('nav-tab-current');
     break;
   default:
     break;
@@ -133,6 +133,9 @@ if (title === 'Travel Experts' || title === 'Customer Signup') {
         $('.hide').css('display', 'none');
         $('#table').css('display', 'table');
         break;
+      case 'sidebar-links':
+      $('.hide').css('display', 'none');
+      $('#links').css('display', 'block');
     }
   });
 

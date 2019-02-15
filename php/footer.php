@@ -1,8 +1,8 @@
 <!-- **************************
 *
-* Author: DongMing Hu
-* Date: Feb. 11, 2019
-* Course: CPRG 210 PHP
+ * Author: PLDM Team 2
+ * Date: Feb. 14, 2019
+ * Course: CPRG 216 Project
 * Description: html body footer include copyright info and JavaScripts
 *
 ************************** -->
@@ -11,7 +11,7 @@
   <hr>
   <div class="company-info">
     <p class="copyright">&copy; Web Design Team Two 2019</p>
-    <p class="company">&reg; PLDM Corporation 2018-2019</p>
+    <p class="company">&reg; Fresh PLDM Corporation 2018-2019</p>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

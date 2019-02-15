@@ -27,11 +27,11 @@
       <a class="dropdown-item" href="customer-signup.php">Signup</a>
       <a class="dropdown-item" href="customer-signin.php">Signin</a>
       <a class="dropdown-item" href="contact.php">Call Us</a>
-      <div class="dropdown-divider"></div>
+      <!-- <div class="dropdown-divider"></div> -->
     </div>
   </div>
 
-  <div class="nav-tab dropdown col-sm-6 col-md-4 col-lg-2">
+  <div class="nav-tab dropdown col-sm-6 col-md-4 col-lg-2" id="agent-tab">
     <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><img src="img/agent.png" alt="Register">Agent</a>
     <div class="dropdown-menu">
       <a class="dropdown-item" href="login.php">Login</a>

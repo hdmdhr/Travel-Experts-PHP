@@ -1,4 +1,11 @@
 <?php
+
+/****************************
+*
+This page is created by Paru
+*
+****************************/
+
 if(session_id() == '' || !isset($_SESSION)) {
     session_start();
 }
@@ -17,8 +24,7 @@ $columnNames = array("CustomerId", "CustFirstName", "CustLastName",
  "CustAddress", "CustCity", "CustProv", "CustPostal", "CustCountry", "CustHomePhone",
  "CustBusPhone", "CustEmail", "AgentId");
 
-
- $customerId= $_SESSION['user-id'];
+ $customerId= $_SESSION['loggedin-id-fn'][1];
 
 while ($row = mysqli_fetch_array($dta, MYSQLI_ASSOC))
 {
