@@ -77,16 +77,14 @@ $customerObj = new Customer(...$postValueArray);
 // ---- New: insert object into database ---
 $tableName = 'customers';
 if (insertObjIntoDBTable($customerObj, $travel_experts, $tableName)) {
-    echo "<h2>Congratulations, <em>".$_POST['firstName']."!</em> You are successfully registered.";
+    echo "<h2>Congratulations, <em>".$_POST['firstName']."!</em> You are successfully registered.<a href='customer-signin.php' ><button class='btn btn-outline-secondary ml-4'>Go Signin</button></a></h2>";
 } else {
-    echo "<h2 class='alert alert-danger'>Sorry! The username is already used.";
+    echo "<h2 class='alert alert-danger'>Sorry! The username is already used.<a href='customer-signup.php' ><button class='btn btn-outline-secondary ml-4'>Go Back</button></a></h2>";
     // if cannot insert into database, save the filled data in session
     session_start();
     $_SESSION['errorMsg'] = $errorMsg;
     $_SESSION['invalidated_post'] = $_POST;
 }
-// create a button to go back to agent entry page
-echo "<a href='customer-signup.php' ><button class='btn btn-outline-secondary ml-4'>Go Back</button></a></h2>";
 
 include_once 'php/footer.php';
 ?>

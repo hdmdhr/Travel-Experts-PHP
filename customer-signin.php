@@ -136,6 +136,12 @@ if ($_POST) {
     <input type="hidden" name="tries" value="1">
     <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
   </form>
+
+  <div class="text-center mt-4">
+    <label for="" class="mr-4 white-bg"><h6><em>Don't have an account yet?</em></h6></label>
+    <a href="customer-signup.php"><button name="" class="btn btn-success">Signup</button></a>
+  </div>
+
 </body>
 
 <?php include_once('php/footer.php') ?>
