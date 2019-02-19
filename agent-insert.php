@@ -32,7 +32,7 @@ if (isset($_POST)) {
         session_start();
         $_SESSION['errorMsg'] = $errorMsg;
         $_SESSION['invalidated_post'] = $_POST;
-        header("Location: http://localhost/PLDM-Team-2/new-agent.php");
+        header("Location: http://localhost/PLDM-Team-2/agent-signup.php");
         exit;
     }
 
@@ -75,7 +75,7 @@ if (insertObjIntoDBTable($agentObj, $travel_experts, $tableName)) {
     echo "<h2>The username you input is already used.";
 }
 // create a button to go back to agent entry page
-echo "<a href='new-agent.php' ><button class='btn btn-outline-secondary ml-4'>Go Back</button></a></h2>";
+echo "<a href='agent-signup.php' ><button class='btn btn-outline-secondary ml-4'>Go Back</button></a></h2>";
 
 include_once('php/footer.php');
 ?>
