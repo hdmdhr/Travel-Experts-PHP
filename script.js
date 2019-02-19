@@ -1,3 +1,4 @@
+//jshint esversion:6
 // --- Forms on Home & Register Pages ---
 
 var title = document.querySelector('title').text;
@@ -210,11 +211,9 @@ if (title === 'Famous Spots') {
 
 ///////////////////////////////mahda-booking page////////////////////////////////////
 
-if (title === 'booking') {
-
 
 if (document.getElementById("bodybooking")){
-
+  console.log('this is booking page');
 
    var submitButton = document.getElementById("submitbtn");
    var errorCName = document.getElementById("errorcname");
@@ -223,12 +222,10 @@ if (document.getElementById("bodybooking")){
    var errorYear = document.getElementById("erroryear");
    var errorTraveler = document.getElementById("errortraveler");
 
-
-
-
-
-   submitButton.addEventListener("click", function(event) {////start of click function for validation form & submit
-
+   if (submitButton){
+    submitButton.addEventListener("click", validate);////start of click function for validation form & submit
+    }
+    function validate(){
     errorCName.style.display = "none";
     errorCNum.style.display = "none";
     errorMonth.style.display = "none";
@@ -296,10 +293,6 @@ if (document.getElementById("bodybooking")){
 
 }
 ////end of click function for validation & submit
-
-
-
-
 
 
 );}

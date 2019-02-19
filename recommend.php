@@ -7,6 +7,7 @@
 * Description: check for popular packages
 *
 *------------------------*/
+
 //the codes below can have a seperate php for easy usage in multiple pages
 include_once('php/function.php');
 $dbh= ConnectDB();
@@ -51,6 +52,7 @@ while ($row = mysqli_fetch_array($dta, MYSQLI_ASSOC))
     FROM customers
     WHERE PackageId='5'");
     //looping and counting for popular package types
+
     while($all=mysqli_fetch_array($dtaa,MYSQLI_NUM))
     {
       $recommend1= $all[1];
@@ -71,12 +73,15 @@ while ($row = mysqli_fetch_array($dta, MYSQLI_ASSOC))
     {
       $recommend5= $all[1];
     }
+
     $pkcary= array ($recommend1, $recommend2, $recommend3, $recommend4, $recommend5);
     $pkarry= array ($recommend1=>"rec1", $recommend2=>"rec2", $recommend3=>"rec3", $recommend4=>"rec4", $recommend5=>"rec5");
    
   }
+
 };
 $var= max ($pkcary);
+
 foreach ($pkarry as $key => $value) {
   if ($var==$key)
   {

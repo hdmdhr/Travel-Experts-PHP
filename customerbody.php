@@ -1,21 +1,26 @@
 <?php
+
 /****************************
 *
 This page is created by Paru
 *
 ****************************/
+
 if(session_id() == '' || !isset($_SESSION)) {
     session_start();
 }
 //the codes below can have a seperate php for easy usage in multiple pages
 include_once('php/function.php');
 $dbh= ConnectDB();
+
 $sql= "SELECT * FROM customers";
 $dta= mysqli_query($dbh,$sql);
 $columnNames = array("CustomerId", "CustFirstName", "CustLastName",
  "CustAddress", "CustCity", "CustProv", "CustPostal", "CustCountry", "CustHomePhone",
  "CustBusPhone", "CustEmail", "AgentId");
+
  $customerId= $_SESSION['loggedin-id-fn'][1];
+
 while ($row = mysqli_fetch_array($dta, MYSQLI_ASSOC))
 {
   if ($row['CustomerId']== $customerId)
@@ -32,6 +37,7 @@ while ($row = mysqli_fetch_array($dta, MYSQLI_ASSOC))
     $email=$row[$columnNames[10]];
     $agentid= $row[$columnNames[11]];
   }
+
 };
 //till here------------
 ?>
@@ -58,6 +64,7 @@ while ($row = mysqli_fetch_array($dta, MYSQLI_ASSOC))
           width:33.33%;
           border:2px solid black;
       }
+
       </style>
 
 
@@ -76,11 +83,14 @@ while ($row = mysqli_fetch_array($dta, MYSQLI_ASSOC))
         echo "<th> Package Type </th>";
         echo "<th> Agent Id </th>";
         echo "</tr>";
+
         $sql= "SELECT GROUP_CONCAT(CustomerId), Count(*)CustomerId
          FROM purchases
          WHERE CustomerId='106'
          Group by 'CustomerId'";
+
         $dtap=mysqli_query($dbh, "SELECT * FROM purchases");
+
         $discrip = array("Travel Australia", "Travel Norway", "Travel Canada","Travel Japan", "Travel China");
         while ($row= mysqli_fetch_array($dtap, MYSQLI_ASSOC))
         {
@@ -89,6 +99,7 @@ while ($row = mysqli_fetch_array($dta, MYSQLI_ASSOC))
                 $cusId= $row['CustomerId'];
                 $pkgId= $row['PackageId']-1;
                 $agtId= $row['AgentId'];
+
                 for ($i=0; $i< 1; $i++)
                 {
                     echo "<tr>";
@@ -108,6 +119,7 @@ while ($row = mysqli_fetch_array($dta, MYSQLI_ASSOC))
         include_once('recommend.php');
         $imgarray= array("img/Australia.jpg", "img/Norway.jpg", "img/Canada.jpg", "img/Japan.jpg","img/China.jpg");
         $discrip = array("Travel Australia", "Travel Norway", "Travel Canada","Travel Japan", "Travel China");
+
         $nn=$recval-1;
         if ($nn==0 || $recval==5)
         {
@@ -116,12 +128,15 @@ while ($row = mysqli_fetch_array($dta, MYSQLI_ASSOC))
             $n=$recval;
         }
         
+
         // echo $imgarray[$nn];
         //recomend package
+
         echo "<div class='recomend'><a href='http://localhost/PLDM-Team-2/package.php'><img src='$imgarray[$nn]' width='500px'></a>";
         echo "<p class='imgcaption'>$discrip[$nn]</p></div>";
         echo "<div class='recomend'><a href='http://localhost/PLDM-Team-2/package.php'><img src='$imgarray[$n]' width='500px'></a>";
         echo "<p class='imgcaption'>$discrip[$n]</p></div>";
+
         include_once('php/footer.php');
     ?>
 

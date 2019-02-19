@@ -17,8 +17,9 @@
      <link rel="stylesheet" href="css/main.css">
 
      <style>
-          .red {
-               color: red;
+
+          h3 {
+               /* color: red; */
                font-weight: bold;
           }
 
@@ -65,14 +66,17 @@
 
 
                 if (!$_POST["TravelerCount"]) {
-                $error_massages .= $error_massages ."<h3 class='red'>Please insert number of traveler.</h3><br>";
+
+                $error_massages .= $error_massages ."<h3>Please insert number of traveler.</h3><br>";
                 $credit_data["TravelerCount"] = "";
                 } else {
                 $credit_data["TravelerCount"] = $_POST["TravelerCount"];
                 }
 
                 if (!($ccname== "AMEX" || $ccname== "VISA" || $ccname== "Mastercard")) {
-                     $error_massages .= "<h3 class='red'>Please insert your Credit card name.</h3><br>";
+
+                     $error_massages .= "<h3>Please insert your Credit card name.</h3><br>";
+
                      $credit_data["CCName"] = "";
                      } else {
                      $credit_data["CCName"] = $ccname;
@@ -163,7 +167,9 @@
 
            <table style="margin-top: -30px" align=center>
            <tr>
+           
                  <td>
+
                       <select name="month" value=''>
                       <option value='00'>Month</option>
                       <option value='01'>January</option>
@@ -185,18 +191,19 @@
                  <td>
                  <select name="year" >
                       <option value='00'>Year</option>
-                      <option value='2019'>2019</option>
-                      <option value='2020'>2020</option>
-                      <option value='2021'>2021</option>
-                      <option value='2022'>2022</option>
-                      <option value='2023'>2023</option>
-                      <option value='2024'>2024</option>
-                      <option value='2025'>2025</option>
-                      <option value='2026'>2026</option>
-                      <option value='2027'>2027</option>
-                      <option value='2028'>2028</option>
-                      <option value='2029'>2029</option>
-                      <option value='2030'>2030</option>
+
+                      <option value='01'>2019</option>
+                      <option value='02'>2020</option>
+                      <option value='03'>2021</option>
+                      <option value='04'>2022</option>
+                      <option value='05'>2023</option>
+                      <option value='06'>2024</option>
+                      <option value='07'>2025</option>
+                      <option value='08'>2026</option>
+                      <option value='09'>2027</option>
+                      <option value='10'>2028</option>
+                      <option value='09'>2029</option>
+                      <option value='10'>2030</option>
 
                  </td>
             </tr>
@@ -354,6 +361,7 @@ EOF;
 
                echo "<h1>Expiry date is: $ExDate</h1>";
 
+
                $sql = " INSERT INTO creditcards (CCName, CCNumber, CCExpiry, CustomerId)
                VALUES ('$CreditName','$CreditNumber','$ExDate','$CustomerId')";
 
@@ -362,6 +370,7 @@ EOF;
                if (!$result) {
                     echo "Error happened: ".mysqli_error($link);
                }
+
 
                CloseDB($link);
                return $result;
