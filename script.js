@@ -210,6 +210,10 @@ if (title === 'Famous Spots') {
 
 
 ///////////////////////////////mahda-booking page////////////////////////////////////
+
+if (title === 'booking') {
+
+
 if (document.getElementById("bodybooking")){
   console.log('this is booking page');
 
@@ -292,7 +296,8 @@ if (document.getElementById("bodybooking")){
    }
 
 
-}////end of click function for validation & submit
+}
+////end of click function for validation & submit
 
 
 
