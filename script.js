@@ -1,3 +1,4 @@
+//jshint esversion:6
 // --- Forms on Home & Register Pages ---
 
 var title = document.querySelector('title').text;
@@ -209,8 +210,10 @@ if (title === 'Famous Spots') {
 
 
 ///////////////////////////////mahda-booking page////////////////////////////////////
-if (document.getElementById("bodybooking")){
 
+
+if (document.getElementById("bodybooking")){
+  console.log('this is booking page');
 
    var submitButton = document.getElementById("submitbtn");
    var errorCName = document.getElementById("errorcname");
@@ -219,9 +222,12 @@ if (document.getElementById("bodybooking")){
    var errorYear = document.getElementById("erroryear");
    var errorTraveler = document.getElementById("errortraveler");
 
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> 4662f17cbd6da2ae4b8153ff4c1264b594f9f882
    if (submitButton){
     submitButton.addEventListener("click", validate);////start of click function for validation form & submit
     }
@@ -291,11 +297,16 @@ if (document.getElementById("bodybooking")){
    }
 
 
-}////end of click function for validation & submit
+}
+////end of click function for validation & submit
 
 
+);}
 
-
-
+<<<<<<< HEAD
 
   }///////////////////////// end of bodybooking
+=======
+}
+  ///////////////////////// end of bodybooking
+>>>>>>> 4662f17cbd6da2ae4b8153ff4c1264b594f9f882

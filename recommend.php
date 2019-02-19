@@ -8,27 +8,15 @@
 *
 *------------------------*/
 
-
-
-// if(session_id() == '' || !isset($_SESSION)) {
-//     session_start();
-// }
-
 //the codes below can have a seperate php for easy usage in multiple pages
 include_once('php/function.php');
 $dbh= ConnectDB();
 $dta= mySqli_query($dbh,"SELECT *FROM customers");
-
 // $dtap= mySqli_query($dbh, "SELECT")
-
 $columnNames = array("CustomerId", "CustFirstName", "CustLastName",
  "CustAddress", "CustCity", "CustProv", "CustPostal", "CustCountry", "CustHomePhone",
  "CustBusPhone", "CustEmail", "AgentId","Password", "PackageId");
-
-
 //$customerId= $_SESSION['user-id'];
-
-
 $customerId="106"; ////change this
 while ($row = mysqli_fetch_array($dta, MYSQLI_ASSOC))
 {
@@ -47,76 +35,80 @@ while ($row = mysqli_fetch_array($dta, MYSQLI_ASSOC))
     $agentid= $row[$columnNames[11]];
     // $pw=$row[$columnNames[12]];
     $pkgtyp=$row[$columnNames[13]];
-
     //counting for popular package
-
     $dtaa= mySqli_query($dbh,"SELECT Packageid, COUNT(*)c
      FROM customers
      WHERE PackageId='1'");
-
     $dta2= mySqli_query($dbh,"SELECT Packageid, COUNT(*)c
     FROM customers
     WHERE PackageId='2'");
-
     $dta3= mySqli_query($dbh,"SELECT Packageid, COUNT(*)c
     FROM customers
     WHERE PackageId='3'");
-
     $dta4= mySqli_query($dbh,"SELECT Packageid, COUNT(*)c
     FROM customers
     WHERE PackageId='4'");
-
     $dta5= mySqli_query($dbh,"SELECT Packageid, COUNT(*)c
     FROM customers
     WHERE PackageId='5'");
-
     //looping and counting for popular package types
-
 
     while($all=mysqli_fetch_array($dtaa,MYSQLI_NUM))
     {
       $recommend1= $all[1];
-
     }
-
     while($all=mysqli_fetch_array($dta2,MYSQLI_NUM))
     {
       $recommend2= $all[1];
-
     }
-
     while($all=mysqli_fetch_array($dta3,MYSQLI_NUM))
     {
       $recommend3= $all[1];
-
     }
     while($all=mysqli_fetch_array($dta4,MYSQLI_NUM))
     {
       $recommend4= $all[1];
-
     }
     while($all=mysqli_fetch_array($dta5,MYSQLI_NUM))
     {
       $recommend5= $all[1];
-
     }
 
     $pkcary= array ($recommend1, $recommend2, $recommend3, $recommend4, $recommend5);
-
+    $pkarry= array ($recommend1=>"rec1", $recommend2=>"rec2", $recommend3=>"rec3", $recommend4=>"rec4", $recommend5=>"rec5");
+   
   }
 
-
-
 };
-
 $var= max ($pkcary);
-$secrec= array_diff($pkcary, array($var));
-$var2= max ($secrec);
 
-
-
-
-
-
-
+foreach ($pkarry as $key => $value) {
+  if ($var==$key)
+  {
+    $recname=$value;
+   
+  }
+  
+}
+if ($recname="rec3")
+{
+  $recval=3;
+ 
+}
+if ($recname="rec1")
+{
+  $recval=1;
+}
+if($recname="rec2")
+{
+  $recval=2;
+}
+if($recname="rec4")
+{
+  $recval=4;
+}
+if($recname="rec5")
+{
+  $recval=5;
+}
 ?>

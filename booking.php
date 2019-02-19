@@ -18,7 +18,7 @@
 
      <style>
           h3 {
-               /* color: red; */
+               color: red;
                font-weight: bold;
           }
 
