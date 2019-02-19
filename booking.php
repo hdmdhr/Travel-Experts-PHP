@@ -17,8 +17,8 @@
      <link rel="stylesheet" href="css/main.css">
 
      <style>
-          .red {
-               color: red;
+          h3 {
+               /* color: red; */
                font-weight: bold;
           }
 
@@ -55,58 +55,58 @@
 
 ////////////validation for each part of the credit card form///////////
 
-     
+
      $error_massages = 'first';
 
       if (isset($_POST["submit"])) {
 
            $error_massages = "";
            $ccname = !empty($_POST['CCName']) ? $_POST['CCName'] : '';
-          
+
 
                 if (!$_POST["TravelerCount"]) {
-                $error_massages .= $error_massages ."<h3 class='red'>Please insert number of traveler.</h3><br>";
+                $error_massages .= $error_massages ."<h3>Please insert number of traveler.</h3><br>";
                 $credit_data["TravelerCount"] = "";
                 } else {
                 $credit_data["TravelerCount"] = $_POST["TravelerCount"];
                 }
 
                 if (!($ccname== "AMEX" || $ccname== "VISA" || $ccname== "Mastercard")) {
-                     $error_massages .= "<h3 class='red'>Please insert your Credit card name.</h3><br>";
+                     $error_massages .= "<h3>Please insert your Credit card name.</h3><br>";
                      $credit_data["CCName"] = "";
                      } else {
                      $credit_data["CCName"] = $ccname;
                      }
-                    
+
 
                 if (!$_POST["CCNumber"]) {
-                     $error_massages .= "<h3 class='red'>Please insert card number.</h3><br>";
+                     $error_massages .= "<h3>Please insert card number.</h3><br>";
                      $credit_data["CCNumber"] = "";
                      } else {
                      $credit_data["CCNumber"] = $_POST["CCNumber"];
                      }
 
                 if ($_POST["year"] == 00) {
-                     $error_massages .= "<h3 class='red'>Please insert year.</h3><br>";
+                     $error_massages .= "<h3>Please insert year.</h3><br>";
                      $exp_data["year"] = "";
                      } else {
                      $exp_data["year"] = $_POST["year"];
                      }
 
                 if ($_POST["month"] == 00) {
-                     $error_massages .= "<h3 class='red'>Please insert month.</h3><br>";
+                     $error_massages .= "<h3>Please insert month.</h3><br>";
                      $exp_data["month"] = "";
                      } else {
                      $exp_data["month"] = $_POST["month"];
                      }
 
 
-                $credit_data["CCExpiry"] = implode ("-",$exp_data)."-01";
+                $credit_data["CCExpiry"] = implode ("-",$exp_data);
 
       }
 
       if (isset($_GET)) { //// taking package information from packege file
-          
+
                 echo "<table class='table'>";
                     echo " <thead><tr>
                           <th colspan='2'>Booking Summary</th>
@@ -155,15 +155,15 @@
            <input type="radio"   name="CCName" value="VISA"/>VISA
            <input type="radio"   name="CCName" value="Mastercard"/>Mastercard<br><br>
 
-           
+
            <label for="CCNumber">Credit card number:</label>
            <input class="" type="text" name="CCNumber" value="{$credit_data["CCNumber"]}"> <br><br>
-           
+
            <label >Expire date :</label>
 
            <table style="margin-top: -30px" align=center>
            <tr>
-                 <td>
+                 <td >
                       <select name="month" value=''>
                       <option value='00'>Month</option>
                       <option value='01'>January</option>
@@ -180,23 +180,23 @@
                       <option value='12'>December</option>
                       </select>
                  </td>
-                 
+
 
                  <td>
                  <select name="year" >
                       <option value='00'>Year</option>
-                      <option value='2019'>2019</option>
-                      <option value='2020'>2020</option>
-                      <option value='2021'>2021</option>
-                      <option value='2022'>2022</option>
-                      <option value='2023'>2023</option>
-                      <option value='2024'>2024</option>
-                      <option value='2025'>2025</option>
-                      <option value='2026'>2026</option>
-                      <option value='2027'>2027</option>
-                      <option value='2028'>2028</option>
-                      <option value='2029'>2029</option>
-                      <option value='2030'>2030</option>
+                      <option value='01'>2019</option>
+                      <option value='02'>2020</option>
+                      <option value='03'>2021</option>
+                      <option value='04'>2022</option>
+                      <option value='05'>2023</option>
+                      <option value='06'>2024</option>
+                      <option value='07'>2025</option>
+                      <option value='08'>2026</option>
+                      <option value='09'>2027</option>
+                      <option value='10'>2028</option>
+                      <option value='09'>2029</option>
+                      <option value='10'>2030</option>
 
                  </td>
             </tr>
@@ -227,13 +227,13 @@ EOF;
 
 
           <!-- show date-->
-          <div class="mb-3"> 
+          <div class="mb-3">
                <label> Today :</label>
                <?php echo( $date = date('Y-m-d')); ?>
-               
+
           </div>
 
-        
+
           <div class="mb-3">
                <label for="TravelerCount"> Number of Travelers :</label>
                <input id="TravelerCount" type="number" min="1" step="1" name="TravelerCount">
@@ -309,9 +309,9 @@ EOF;
           </div>
 
 
-      
+
           <input id="submitbtn" class="mt-3" type="submit" name="submit" value="submit">
-    
+
      </form>
 
 
@@ -322,6 +322,7 @@ EOF;
        require_once('php/footer.php');
    ?>
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+     <script src="script.js" charset="utf-8"></script>
 
 </body>
 
@@ -346,22 +347,18 @@ EOF;
            function CreditInsert($credit_data){
                $link = ConnectDB();
 
-              
+
                $CustomerId= $_SESSION['loggedin-id-fn'][1];
                $CreditName = $credit_data['CCName'];
                $CreditNumber = $credit_data['CCNumber'];
                $ExDate = $credit_data['CCExpiry'];
-               
-               echo "<h1>Expiry date is: $ExDate</h1>";
+
 
                $sql = " INSERT INTO creditcards (CCName, CCNumber, CCExpiry, CustomerId)
                VALUES ('$CreditName','$CreditNumber','$ExDate','$CustomerId')";
 
                $result = mysqli_query($link, $sql);
 
-               if (!$result) {
-                    echo "Error happened: ".mysqli_error($link);
-               }
 
                CloseDB($link);
                return $result;
@@ -369,7 +366,7 @@ EOF;
      //////////////////////////function for inserting booking info to database///////////////////////
           function BookingInsert($credit_data){
                $link = ConnectDB();
-              
+
                $CustomerId= $_SESSION['loggedin-id-fn'][1];
                $TRcount= $credit_data["TravelerCount"];
                $BookingDate = date('Y-m-d');
