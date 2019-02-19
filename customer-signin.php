@@ -10,6 +10,12 @@
 
 if(session_id() == '' || !isset($_SESSION)) {
   session_start();  // if session isn't start, start it
+  
+  if (isset($_SESSION['loggedin-id-fn'])) {
+    // if there is already a signed in user, head back to home page
+    header("Location: http://localhost/PLDM-Team-2/index.php?alert=You're already logged in.");
+    exit;
+  }
 }
 
 if ($_POST) {
@@ -36,32 +42,30 @@ if ($_POST) {
     checkTryTimes($_SESSION['try-times']['try']);
   }
 
-  // ---- Validate user name and pin using database ----
+    // ----- check username and pin against database -----
 
   include_once('php/function.php');
   $travelExperts = ConnectDB();
   $inputUserName = $_POST['UserId'];
   $inputPassword = $_POST['Password'];
   $sql = "SELECT CustPassword, CustomerId, CustFirstName FROM customers WHERE CustUserName = '$inputUserName'";
+  $resultArray = queryDataArrayFromDatabase($sql,$travelExperts);
 
-  if (!queryDataArrayFromDatabase($sql,$travelExperts)) {
+  if (!$resultArray) {
+    // if query return no result, means there is no username in database matches the input username
     echo "<h2 class='alert alert-danger' role='alert'>User name or password do not exist.</h2>";
   } else {
     // if there is a row in database match user name, extract password, id, and first name values for future use
-    $savedPin = queryDataArrayFromDatabase($sql,$travelExperts)[0]['CustPassword'];
-
-
-    $custId = queryDataArrayFromDatabase($sql,$travelExperts)[0]['CustomerId'];
-
-    
-    $custFirstName = queryDataArrayFromDatabase($sql,$travelExperts)[0]['CustFirstName'];
+    $savedPin = $resultArray[0]['CustPassword'];
+    $custId = $resultArray[0]['CustomerId'];
+    $custFirstName = $resultArray[0]['CustFirstName'];
 
     if (password_needs_rehash($savedPin,PASSWORD_DEFAULT)) {
-      // if saved pin need rehash, rehash it, and update database
+      // if pin need rehash, rehash it, and update database
       $savedPin = password_hash($savedPin,PASSWORD_DEFAULT);
       $updateSql = "UPDATE `customers` SET `CustPassword` = '$savedPin' WHERE `customers`.`CustomerId` = $custId";
       if (!$travelExperts->query($updateSql)) {
-        echo "<h2 class='alert alert-danger' role='alert'>Update password failed.</h2>";
+        echo "<h2 class='alert alert-danger' role='alert'>Updating password failed.</h2>";
       }
     }
 
@@ -69,14 +73,14 @@ if ($_POST) {
       echo "<h2 class='alert alert-danger' role='alert'>Password or user name do not exist.</h2>";
     } else {
       // if passwords match, save user id and first name in a session, head to customer account page
-      $_SESSION['loggedin-custId-fn'] = array($custId, $custFirstName);
-      header("Location: http://localhost/PLDM-Team-2/customerpage.php");
+      $_SESSION['loggedin-id-fn'] = array('Customer', $custId, $custFirstName);
+      header("Location: http://localhost/PLDM-Team-2/customerbody.php");
     }
 
   }
 
-} else { 
-  // echo "No post received."; 
+} else {
+  // echo "No post received.";
 }
 
  ?>
@@ -99,7 +103,12 @@ if ($_POST) {
 </head>
 
 <body class="text-center">
-  <?php include_once('php/header.php') ?>
+  <?php include_once('php/header.php');
+    // if have any $_GET['alert'], show alert
+    if (isset($_GET['alert'])) {
+      echo "<h1 class='alert alert-danger'>".$_GET['alert']."</h1>";
+    }
+  ?>
 
   <form class="form-signin mt-5" method="post" action="#">
     <?php
@@ -127,6 +136,12 @@ if ($_POST) {
     <input type="hidden" name="tries" value="1">
     <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
   </form>
+
+  <div class="text-center mt-4">
+    <label for="" class="mr-4 white-bg"><h6><em>Don't have an account yet?</em></h6></label>
+    <a href="customer-signup.php"><button name="" class="btn btn-success">Signup</button></a>
+  </div>
+
 </body>
 
 <?php include_once('php/footer.php') ?>

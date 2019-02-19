@@ -4,7 +4,7 @@
 * Author: PLDM Team 2
 * Date: Feb. 14, 2019
 * Course: CPRG 216 Project
-* Description: agent entry page whcih requires login to view
+* Description: agent entry page whcih requires a agent login to view
 *
 **************************/
 
@@ -13,8 +13,8 @@ if(session_id() == '' || !isset($_SESSION)) {
     session_start();
 }
 
-if (!isset($_SESSION['loggedin-agentId-fn'])) {
-  header("Location: http://localhost/PLDM-Team-2/login.php");
+if (!isset($_SESSION['loggedin-id-fn'])) {
+  header("Location: http://localhost/PLDM-Team-2/login.php?alert=Please login to continue.");
 }
 
 ?>

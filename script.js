@@ -10,8 +10,8 @@ switch (title) {
   case 'Contact Us':
     $('.contact')[0].classList.add('nav-tab-current');
     break;
-  case 'Customer Signup':
-    $('#cust-signup')[0].classList.add('nav-tab-current');
+  case 'Customer Signup': case 'Customer Signin':
+    $('#customer-tab')[0].classList.add('nav-tab-current');
     break;
   case 'Famous Spots':
     $('.spots')[0].classList.add('nav-tab-current');
@@ -19,8 +19,8 @@ switch (title) {
   case 'Links':
     $('.links')[0].classList.add('nav-tab-current');
     break;
-  case 'Add New Agent':
-    $('.add-agent')[0].classList.add('nav-tab-current');
+  case 'Add New Agent': case'Agent Login':
+    $('#agent-tab')[0].classList.add('nav-tab-current');
     break;
   default:
     break;
@@ -120,19 +120,22 @@ if (title === 'Travel Experts' || title === 'Customer Signup') {
   $('aside ul li').mouseover(function(event) {
     $('aside ul li').css('background-color', 'RGBA(189, 183, 107, 0.25)');
     this.style.backgroundColor = 'RGBA(189, 183, 107, 0.75)';
-    switch (this.textContent) {
-      case 'See Gallery':
+    switch (this.classList[0]) {
+      case 'sidebar-see':
         $('.hide').css('display', 'none');
         $('#carousel').css('display', 'block');
         break;
-      case 'Register Now':
+      case 'sidebar-signup':
         $('.hide').css('display', 'none');
         $('#form').css('display', 'block');
         break;
-      case 'Contact Us':
+      case 'sidebar-contact':
         $('.hide').css('display', 'none');
         $('#table').css('display', 'table');
         break;
+      case 'sidebar-links':
+      $('.hide').css('display', 'none');
+      $('#links').css('display', 'block');
     }
   });
 
@@ -215,7 +218,9 @@ if (document.getElementById("bodybooking")){
    var errorMonth = document.getElementById("errormonth");
    var errorDate = document.getElementById("errordate");
    var errorYear = document.getElementById("erroryear");
-   var errorCusid = document.getElementById("errorcusid");
+
+   var errorTraveler = document.getElementById("errortraveler");
+
 
 
 
@@ -227,15 +232,29 @@ if (document.getElementById("bodybooking")){
     errorMonth.style.display = "none";
     errorDate.style.display = "none";
     errorYear.style.display = "none";
-    errorCusid.style.display = "none";
     correctcnum.style.display="none";
+
+    errorTraveler.style.display="none";
+
+
 
 
     var CreditNumber = document.creditform.CCNumber.value;
     var Month = document.creditform.month.value;
     var Date = document.creditform.date.value;
     var Year = document.creditform.year.value;
-    var CustId = document.creditform.CustomerId.value;
+
+    var Travelers = document.creditform.TravelerCount.value;
+
+    if (!Travelers){
+
+      event.preventDefault();
+      errorTraveler.style.display="block";
+      return false;
+  }
+
+
+
 
 
    var radios = document.getElementsByName("CCName");  //// credit card name validation
@@ -283,12 +302,7 @@ if (document.getElementById("bodybooking")){
 
 
 
-   if (!CustId ){
 
-   event.preventDefault();
-   errorCusid.style.display="block";
-   return false;
-  }
 
 
 

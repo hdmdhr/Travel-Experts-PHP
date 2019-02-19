@@ -8,13 +8,19 @@
 *
 **************************/
 
-if(session_id() == '' || !isset($_SESSION)) {
-    session_start();  // if session isn't start, start it
-}
+  if(session_id() == '' || !isset($_SESSION)) {
+      session_start();  // if session isn't start, start it
+  }
+
+  if (isset($_SESSION['loggedin-id-fn'])) {
+    // if there is already a signed in user, head back to home page
+    header("Location: http://localhost/PLDM-Team-2/index.php?alert=You're already logged in.");
+    exit;
+  }
 
   if ($_POST) {
 
-    // ---- Check if user reached maximum try times(15) per hour ----
+    // ----- Check if user reached maximum try times(15) per hour -----
 
     function checkTryTimes($tryTimes) {
       // check try times to show corresponding message
@@ -36,28 +42,30 @@ if(session_id() == '' || !isset($_SESSION)) {
       checkTryTimes($_SESSION['try-times']['try']);
     }
 
-    // ---- Validate user name and pin using database ----
+    // ----- check username and pin against database -----
 
     include_once('php/function.php');
     $travelExperts = ConnectDB();
     $inputUserName = $_POST['UserId'];
     $inputPassword = $_POST['Password'];
     $sql = "SELECT AgtPassword, AgentId, AgtFirstName FROM agents WHERE AgtUserName = '$inputUserName'";
+    $resultArray = queryDataArrayFromDatabase($sql,$travelExperts);
 
-    if (!queryDataArrayFromDatabase($sql,$travelExperts)) {
+    if (!$resultArray) {
+      // if query return no result, means there is no username in database matches the input username
       echo "<h2 class='alert alert-danger' role='alert'>User name or password do not exist.</h2>";
     } else {
-      // if there is a row in database match user name, extract password, id, and first name values for future use
-      $savedPin = queryDataArrayFromDatabase($sql,$travelExperts)[0]['AgtPassword'];
-      $agtId = queryDataArrayFromDatabase($sql,$travelExperts)[0]['AgentId'];
-      $agtFirstName = queryDataArrayFromDatabase($sql,$travelExperts)[0]['AgtFirstName'];
+      // if there is a matched user name, extract password, id, and first name values for future use, check password
+      $savedPin = $resultArray[0]['AgtPassword'];
+      $agtId = $resultArray[0]['AgentId'];
+      $agtFirstName = $resultArray[0]['AgtFirstName'];
 
       if (password_needs_rehash($savedPin,PASSWORD_DEFAULT)) {
-        // if saved pin need rehash, rehash it, and update database
+        // if pin need rehash, rehash it, and update database
         $savedPin = password_hash($savedPin,PASSWORD_DEFAULT);
         $updateSql = "UPDATE `agents` SET `AgtPassword` = '$savedPin' WHERE `agents`.`AgentId` = $agtId";
         if (!$travelExperts->query($updateSql)) {
-          echo "<h2 class='alert alert-danger' role='alert'>Update password failed.</h2>";
+          echo "<h2 class='alert alert-danger' role='alert'>Updating password failed.</h2>";
         }
       }
 
@@ -65,17 +73,15 @@ if(session_id() == '' || !isset($_SESSION)) {
         echo "<h2 class='alert alert-danger' role='alert'>Password or user name do not exist.</h2>";
       } else {
         // if passwords match, save user id and first name in a session, head to *agent entry page (temporary)
-        $_SESSION['loggedin-agentId-fn'] = array($agtId, $agtFirstName);
+        $_SESSION['loggedin-id-fn'] = array('Agent',$agtId,$agtFirstName);
         header("Location: http://localhost/PLDM-Team-2/new-agent.php");
       }
 
     }
 
-  } else { 
-    // echo "No post received."; 
+  } else {
+    // echo "No post received.";
   }
-
-
 
  ?>
 
@@ -97,7 +103,14 @@ if(session_id() == '' || !isset($_SESSION)) {
 </head>
 
 <body class="text-center">
-  <?php include_once('php/header.php') ?>
+  <?php
+    include_once('php/header.php');
+
+    // if receive any $_GET['alert'], show alert
+    if (isset($_GET['alert'])) {
+      echo "<h1 class='alert alert-danger'>".$_GET['alert']."</h1>";
+    }
+  ?>
 
   <form class="form-signin mt-5" method="post" action="#">
 
@@ -127,8 +140,10 @@ if(session_id() == '' || !isset($_SESSION)) {
     <input type="hidden" name="tries" value="1">
     <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
   </form>
+
+  <?php include_once('php/footer.php') ?>
+
 </body>
 
-<?php include_once('php/footer.php') ?>
 
 </html>

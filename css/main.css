@@ -2,7 +2,7 @@ body {
   font: 1rem 'Raleway', sans-serif;
   text-align: center;
   color: #373640;
-  /* background-image: url("../img/city-bg.jpg"); */
+  background-image: url("../img/city-bg.jpg");
   background-size: cover;
   background-position: center;
 }
@@ -19,7 +19,7 @@ h2 {
 /* --- Header Section --- */
 header {
   padding: 10px;
-  background-color: RGBA(189, 183, 107, 0.25);
+  background-color: RGBA(189, 183, 107, 0.1);
 }
 
 h1 {
@@ -27,6 +27,10 @@ h1 {
   font: 900 3rem 'Lato', sans-serif;
   margin: 2rem;
   vertical-align: middle;
+}
+.package_head {
+  font: 550 2rem 'Lato', sans-serif; 
+
 }
 
 .logo-line {
@@ -103,7 +107,8 @@ aside li {
 
 .gallery {
   padding: 2rem;
-  background-color: rgba(116, 180, 155, 0.4);
+  background-color: RGBA(189, 183, 107, 0.1);
+  /* background-color: rgba(116, 180, 155, 0.2); */
   text-align: center;
 }
 
@@ -235,6 +240,13 @@ td img {
 }
 
 /* ---Footer Section --- */
+
+.company-info {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 8%;
+  display: inline-block;
+  padding: 1em 2em 0;
+}
 
 .copyright, .company {
   font: italic 700 1.2em 'Raleway', sans-serif;

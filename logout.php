@@ -1,15 +1,15 @@
 <?php
 /**************************
 *
-* Author: DongMing Hu
-* Date: Feb. 11, 2019
-* Course: CPRG 210 PHP
-* Description: this page is only used for logout
+* Author: PLDM Team 2
+* Date: Feb. 14, 2019
+* Course: CPRG 216 Project
+* Description: logout user, return to home page.
 *
 **************************/
   session_start();
 
-  unset($_SESSION['loggedin-agentId-fn']);
+  unset($_SESSION['loggedin-id-fn']);
 
-  header("Location: http://localhost/PLDM-Team-2/login.php");
+  header("Location: http://localhost/PLDM-Team-2/index.php");
  ?>
