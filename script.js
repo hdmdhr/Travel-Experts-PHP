@@ -209,6 +209,10 @@ if (title === 'Famous Spots') {
 
 
 ///////////////////////////////mahda-booking page////////////////////////////////////
+
+if (title === 'booking') {
+
+
 if (document.getElementById("bodybooking")){
 
 
@@ -290,11 +294,15 @@ if (document.getElementById("bodybooking")){
    }
 
 
-}////end of click function for validation & submit
+}
+////end of click function for validation & submit
 
 
 
 
 
-   
-  }///////////////////////// end of bodybooking
+
+);}
+
+}
+  ///////////////////////// end of bodybooking

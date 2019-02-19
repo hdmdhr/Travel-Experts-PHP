@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 14, 2019 at 09:28 PM
--- Server version: 10.1.31-MariaDB
--- PHP Version: 7.2.4
+-- Generation Time: Feb 19, 2019 at 04:32 AM
+-- Server version: 10.1.37-MariaDB
+-- PHP Version: 7.3.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -111,7 +111,8 @@ INSERT INTO `agents` (`AgentId`, `AgtFirstName`, `AgtMiddleInitial`, `AgtLastNam
 (17, '1943', NULL, '0210', '(780)616-7477', '1@2.com', 'Junior Agent', '17', '222', 2),
 (18, '0304', NULL, 'Hu', '(780)616-7477', '1@2.com', 'Junior Agent', '', '', 2),
 (20, 'DongMing', NULL, 'Hu', '(780)616-7477', 'hdmdhr@gmail.com', 'Junior Agent', 'hdmdtc', '85936560', 1),
-(24, '0857', NULL, '0213', '(780)616-7477', '1@2.com', 'Junior Agent', '123', '123', 2);
+(24, '0857', NULL, '0213', '(780)616-7477', '1@2.com', 'Junior Agent', '123', '123', 2),
+(25, 'DongMing', NULL, 'Hu', '(123)456-7890', '1@2.com', 'Junior Agent', 'dhr', '123', 1);
 
 -- --------------------------------------------------------
 
@@ -440,7 +441,11 @@ INSERT INTO `bookings` (`BookingId`, `BookingDate`, `BookingNo`, `TravelerCount`
 (1293, '2000-10-22 00:00:00', 'KJLK89234', 1, 130, 'L', NULL),
 (1301, '2000-11-21 00:00:00', 'FSD82940', 1, 127, 'B', NULL),
 (1302, '2000-11-22 00:00:00', 'FSD82941', 1, 141, 'B', NULL),
-(1303, '2000-11-23 00:00:00', 'KJk934', 1, 127, 'B', NULL);
+(1303, '2000-11-23 00:00:00', 'KJk934', 1, 127, 'B', NULL),
+(1304, '2019-02-18 00:00:00', NULL, 2, 107, NULL, 3),
+(1305, '2019-02-18 00:00:00', NULL, 2, 107, NULL, 2),
+(1306, '2019-02-18 00:00:00', NULL, 1, 104, NULL, 1),
+(1307, '2019-02-18 00:00:00', NULL, 1, 104, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -479,7 +484,7 @@ CREATE TABLE `creditcards` (
   `CreditCardId` int(11) NOT NULL,
   `CCName` varchar(10) NOT NULL,
   `CCNumber` varchar(16) NOT NULL,
-  `CCExpiry` date NOT NULL,
+  `CCExpiry` varchar(50) NOT NULL,
   `CustomerId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -510,7 +515,10 @@ INSERT INTO `creditcards` (`CreditCardId`, `CCName`, `CCNumber`, `CCExpiry`, `Cu
 (243, 'VISA', '23958389028923', '2022-08-22', 119),
 (252, 'VISA', '3456683343353430', '2022-10-29', 135),
 (272, 'VISA', '6543254233444530', '2022-01-22', 122),
-(279, 'VISA', '78789007977999', '2022-08-22', 105);
+(279, 'VISA', '78789007977999', '2022-08-22', 105),
+(280, 'VISA', '5421542154215421', '2027-06-01', 107),
+(281, 'AMEX', '4567456745674567', '2028-08-01', 107),
+(283, 'VISA', '3214321432143214', '2030-12', 104);
 
 -- --------------------------------------------------------
 
@@ -1536,7 +1544,7 @@ ALTER TABLE `agencies`
 -- AUTO_INCREMENT for table `agents`
 --
 ALTER TABLE `agents`
-  MODIFY `AgentId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `AgentId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `bookingdetails`
@@ -1548,13 +1556,13 @@ ALTER TABLE `bookingdetails`
 -- AUTO_INCREMENT for table `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `BookingId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1304;
+  MODIFY `BookingId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1308;
 
 --
 -- AUTO_INCREMENT for table `creditcards`
 --
 ALTER TABLE `creditcards`
-  MODIFY `CreditCardId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=280;
+  MODIFY `CreditCardId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=284;
 
 --
 -- AUTO_INCREMENT for table `customers`
