@@ -55,7 +55,6 @@ if (isset($_POST)) {
 <body>
 
 <?php
-echo "<h1>This should not be seen if form is invalidated.</h1>";
 // validation past, collect data from post and insert into database: 1.include insert func, 2.connect database, 3.use $_POST to create obj, 4.pass obj into insert func, 5.print succeed or fail.
 include_once 'php/menu.php';
 include_once 'php/function.php';
