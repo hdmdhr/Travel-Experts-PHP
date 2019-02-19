@@ -55,29 +55,29 @@
 
 ////////////validation for each part of the credit card form///////////
 
+     
      $error_massages = 'first';
 
       if (isset($_POST["submit"])) {
 
            $error_massages = "";
+           $ccname = !empty($_POST['CCName']) ? $_POST['CCName'] : '';
+          
 
                 if (!$_POST["TravelerCount"]) {
-                $error_massages .= "<h3>Please insert number of traveler.</h3><br>";
+                $error_massages .= $error_massages ."<h3>Please insert number of traveler.</h3><br>";
                 $credit_data["TravelerCount"] = "";
                 } else {
                 $credit_data["TravelerCount"] = $_POST["TravelerCount"];
                 }
 
-
-
-
-
-                if (!($_POST["CCName"]== "AMEX" || $_POST["CCName"]== "VISA" || $_POST["CCName"]== "Mastercard")) {
-                     $error_massages .= $error_massages ."<h3>Please insert your Credit card name.</h3><br>";
+                if (!($ccname== "AMEX" || $ccname== "VISA" || $ccname== "Mastercard")) {
+                     $error_massages .= "<h3>Please insert your Credit card name.</h3><br>";
                      $credit_data["CCName"] = "";
                      } else {
-                     $credit_data["CCName"] = $_POST["CCName"];
+                     $credit_data["CCName"] = $ccname;
                      }
+                    
 
                 if (!$_POST["CCNumber"]) {
                      $error_massages .= "<h3>Please insert card number.</h3><br>";
@@ -100,20 +100,13 @@
                      $exp_data["month"] = $_POST["month"];
                      }
 
-                if ($_POST["date"] == 00) {
-                     $error_massages .= "<h3>Please insert date.</h3><br>";
-                     $exp_data["date"] = "";
-                     } else {
-                     $exp_data["date"] = $_POST["date"];
-                     }
 
                 $credit_data["CCExpiry"] = implode ("-",$exp_data);
 
       }
 
-      if (isset($_GET)) {
-          //print("<h3 class='booking_detail'><strong>Order:</strong>  ".$_GET['id'].".  ".$_GET['name']." from ".$_GET['sDate']." to ".$_GET['eDate']." enjoy the ".$_GET['des']."  with Price:  $ ".$_GET['price'].".</h3>");
-
+      if (isset($_GET)) { //// taking package information from packege file
+          
                 echo "<table class='table'>";
                     echo " <thead><tr>
                           <th colspan='2'>Booking Summary</th>
@@ -143,34 +136,30 @@
                 $date = date('Y-m-d  ,  H:i:s');
                 print("<h5> Booking date : " . $date . "</h5> <br><br>");
 
-
-
-
                 } else {
                 print("<h3 class='h3'>There was an error with the credit data, please try again.</h3>");
                 }
       }
-
-
-
       elseif ($error_massages != 'first'){
       ////////////////create the form and error messages/////////////////////
            print "$error_massages";
            print <<<EOF
+
       <form method="post" action="#">
 
            <label  for="TravelerCount"> Number of Travelers  :</label>
            <input id="TravelerCount" type="number" min="1" step="1" name="TravelerCount" value="{$credit_data["TravelerCount"]}"><br><br>
 
            <label for="CCName" > Credit card name :</label>
-           <input type="radio"   id="CCName" name="CCName" value="AMEX"/>AMEX
+           <input type="radio"   name="CCName" value="AMEX"/>AMEX
            <input type="radio"   name="CCName" value="VISA"/>VISA
-           <input type="radio"   name="CCName" value="Mastercard"/>Mastercard
+           <input type="radio"   name="CCName" value="Mastercard"/>Mastercard<br><br>
 
-           <br><br>
+           
            <label for="CCNumber">Credit card number:</label>
            <input class="" type="text" name="CCNumber" value="{$credit_data["CCNumber"]}"> <br><br>
-           <label for="CCExpiry">Expire date :</label>
+           
+           <label >Expire date :</label>
 
            <table style="margin-top: -30px" align=center>
            <tr>
@@ -191,42 +180,7 @@
                       <option value='12'>December</option>
                       </select>
                  </td>
-                 <td >
-                      <select name="date" >
-                      <option value='00'>Date</option>
-                      <option value='01'>01</option>
-                      <option value='02'>02</option>
-                      <option value='03'>03</option>
-                      <option value='04'>04</option>
-                      <option value='05'>05</option>
-                      <option value='06'>06</option>
-                      <option value='07'>07</option>
-                      <option value='08'>08</option>
-                      <option value='09'>09</option>
-                      <option value='10'>10</option>
-                      <option value='11'>11</option>
-                      <option value='12'>12</option>
-                      <option value='13'>13</option>
-                      <option value='14'>14</option>
-                      <option value='15'>15</option>
-                      <option value='16'>16</option>
-                      <option value='17'>17</option>
-                      <option value='18'>18</option>
-                      <option value='19'>19</option>
-                      <option value='20'>20</option>
-                      <option value='21'>21</option>
-                      <option value='22'>22</option>
-                      <option value='23'>23</option>
-                      <option value='24'>24</option>
-                      <option value='25'>25</option>
-                      <option value='26'>26</option>
-                      <option value='27'>27</option>
-                      <option value='28'>28</option>
-                      <option value='29'>29</option>
-                      <option value='30'>30</option>
-                      <option value='31'>31</option>
-                      </select>
-                 </td>
+                 
 
                  <td>
                  <select name="year" >
@@ -263,10 +217,8 @@ EOF;
      <p id="errorcname" class="bookerror" style="display:none;"> Credit name is required to be filled!</p>
      <p id="errorcnum" class="bookerror" style="display:none;"> Credit number is required to be filled!</p>
      <p id="errormonth" class="bookerror" style="display:none;"> Month is required to be filled!</p>
-     <p id="errordate" class="bookerror" style="display:none;"> Date is required to be filled!</p>
      <p id="erroryear" class="bookerror" style="display:none;"> Year is required to be filled!</p>
      <p id="correctcnum" class="bookerror" style="display:none;"> Credit number must be 16 digits number!</p>
-
      <p id="errortraveler" class="bookerror" style="display:none;"> Number of travelers is required to be filled!</p>
 
 
@@ -274,18 +226,19 @@ EOF;
      <form class="form" name="creditform" method="post" action="#">
 
 
-
-          <div class="mb-3">
+          <!-- show date-->
+          <div class="mb-3"> 
                <label> Today :</label>
                <?php echo( $date = date('Y-m-d')); ?>
-               <!-- show date-->
+               
           </div>
 
-          <!-- <label>Booking price :</label> -->
+        
           <div class="mb-3">
                <label for="TravelerCount"> Number of Travelers :</label>
                <input id="TravelerCount" type="number" min="1" step="1" name="TravelerCount">
           </div>
+
 
           <div class="mb-3">
                <label> Total Amout :</label>
@@ -309,7 +262,7 @@ EOF;
           </div>
 
           <div class="mb-3">
-               <label for="CCExpiry">Expire date :</label>
+               <label >Expire date :</label>
 
                <table style="margin: -27px  100px">
 
@@ -329,45 +282,6 @@ EOF;
                                    <option value='10'>October</option>
                                    <option value='11'>November</option>
                                    <option value='12'>December</option>
-                              </select>
-
-                         </td>
-
-                         <td>
-
-                              <select id="date" name="date">
-                                   <option value='00'>Date</option>
-                                   <option value='01'>01</option>
-                                   <option value='02'>02</option>
-                                   <option value='03'>03</option>
-                                   <option value='04'>04</option>
-                                   <option value='05'>05</option>
-                                   <option value='06'>06</option>
-                                   <option value='07'>07</option>
-                                   <option value='08'>08</option>
-                                   <option value='09'>09</option>
-                                   <option value='10'>10</option>
-                                   <option value='11'>11</option>
-                                   <option value='12'>12</option>
-                                   <option value='13'>13</option>
-                                   <option value='14'>14</option>
-                                   <option value='15'>15</option>
-                                   <option value='16'>16</option>
-                                   <option value='17'>17</option>
-                                   <option value='18'>18</option>
-                                   <option value='19'>19</option>
-                                   <option value='20'>20</option>
-                                   <option value='21'>21</option>
-                                   <option value='22'>22</option>
-                                   <option value='23'>23</option>
-                                   <option value='24'>24</option>
-                                   <option value='25'>25</option>
-                                   <option value='26'>26</option>
-                                   <option value='27'>27</option>
-                                   <option value='28'>28</option>
-                                   <option value='29'>29</option>
-                                   <option value='30'>30</option>
-                                   <option value='31'>31</option>
                               </select>
 
                          </td>
@@ -416,7 +330,7 @@ EOF;
 
 
 <?php
-    // function for connecting to the database and close it
+    ////////////////////// function for connecting to the database and close it/////////////////////////
      function ConnectDB(){
             $dbh = mysqli_connect("localhost", "admin", "P@ssw0rd", "travelexperts");
             if (!$dbh){
@@ -433,19 +347,12 @@ EOF;
            function CreditInsert($credit_data){
                $link = ConnectDB();
 
-
+              
+               $CustomerId= $_SESSION['loggedin-id-fn'][1];
                $CreditName = $credit_data['CCName'];
                $CreditNumber = $credit_data['CCNumber'];
                $ExDate = $credit_data['CCExpiry'];
-               $CustomerId ="104";
-
-               //$Email= "pradicola@home.com";
-              // $CustId = mysqli_query($link,"SELECT * FROM `customers` WHERE `CustEmail` LIKE '%$Email%'");
-              // while ($row = mysqli_fetch_array($CustId))
-              // {
-              // $CustomerId = $row['CustomerId'];
-              // }
-
+               
 
                $sql = " INSERT INTO creditcards (CCName, CCNumber, CCExpiry, CustomerId)
                VALUES ('$CreditName','$CreditNumber','$ExDate','$CustomerId')";
@@ -456,23 +363,11 @@ EOF;
                CloseDB($link);
                return $result;
           }
-     //////////////////////////function for inserting booking info to database
+     //////////////////////////function for inserting booking info to database///////////////////////
           function BookingInsert($credit_data){
                $link = ConnectDB();
-
-
-               $Email= "pradicola@home.com";
-               $CustId = mysqli_query($link,"SELECT * FROM `customers` WHERE `CustEmail` LIKE '%$Email%'");
-               while ($row = mysqli_fetch_array($CustId))
-               {
-               $CustomerId = $row['CustomerId'];
-               }
-
-
-              //if (isset($_GET)) {
-             //  $PackageId = $_GET['id'];
-             // }
-
+              
+               $CustomerId= $_SESSION['loggedin-id-fn'][1];
                $TRcount= $credit_data["TravelerCount"];
                $BookingDate = date('Y-m-d');
                $PackageId = $_GET['id'];
@@ -492,11 +387,7 @@ EOF;
 
           }
 
-
-
-
-
-//// $Email= $_POST[""]
+       //////////////////////////function for counting price///////////////////////
 
 
 
