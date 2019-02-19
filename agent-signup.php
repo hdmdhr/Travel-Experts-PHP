@@ -6,6 +6,7 @@
 * Course: CPRG 216 Project
 * Description: agent entry page whcih requires a agent login to view
 *
+* Author of this page: DongMing Hu
 **************************/
 
 if(session_id() == '' || !isset($_SESSION)) {
@@ -14,7 +15,13 @@ if(session_id() == '' || !isset($_SESSION)) {
 }
 
 if (!isset($_SESSION['loggedin-id-fn'])) {
-  header("Location: http://localhost/PLDM-Team-2/login.php?alert=Please login to continue.");
+  // if there isn't login session, head to agent login page
+  header("Location: http://localhost/PLDM-Team-2/agent-login.php?alert=Please login to continue.");
+} else {
+  if ($_SESSION['loggedin-id-fn'][0]==='Customer') {
+    // if there is login session, but user is a customer, head to home page with alert message
+    header("Location: http://localhost/PLDM-Team-2/index.php?alert=You don't have authorization for that.");
+  }
 }
 
 ?>
@@ -37,7 +44,7 @@ if (!isset($_SESSION['loggedin-id-fn'])) {
   <?php
   include_once('php/header.php');
 
-  // check error message, save invalidated data
+  // check if there is error message and invalidated data, if yes, save into new var
   $oldData = array();
   if (isset($_SESSION['invalidated_post'])) {
     $errorMsg = "<p class='alert alert-danger text-center'>".$_SESSION['errorMsg']."</p>";
@@ -48,9 +55,10 @@ if (!isset($_SESSION['loggedin-id-fn'])) {
 
  ?>
 
-  <form class="needs-validation" method="post" action="insert-agent.php">
+  <form class="needs-validation" method="post" action="agent-insert.php">
     <?php if (isset($errorMsg)) {
-        echo "<h3 class='alert alert-danger text-center'>Could <em>not</em> insert agent.</h3>";
+        // show error message about reasons of invalidation
+        echo "<h4 class='alert alert-danger text-center'>Could <em>not</em> complete due to following issues.</h4>";
         echo $errorMsg;
       } ?>
 
@@ -59,7 +67,7 @@ if (!isset($_SESSION['loggedin-id-fn'])) {
     <div class="row">
       <div class="col-md-6 mb-3">
         <label for="firstName">First name</label>
-        <!-- if have old value from last submit, show it, otherwise, no value -->
+        <!-- if have saved old value from last submission, show it, otherwise, no value -->
         <input type="text" class="form-control" id="firstName" name="AgtFirstName" placeholder="First Name" value="<?php if ($oldData):?><?php echo $oldData['AgtFirstName']; endif ?>" autofocus required>
         <div class="invalid-feedback">
           Valid first name is required.

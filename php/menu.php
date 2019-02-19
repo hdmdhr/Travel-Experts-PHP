@@ -34,8 +34,8 @@
   <div class="nav-tab dropdown col-sm-6 col-md-4 col-lg-2" id="agent-tab">
     <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><img src="img/agent.png" alt="Register">Agent</a>
     <div class="dropdown-menu">
-      <a class="dropdown-item" href="login.php">Login</a>
-      <a class="dropdown-item" href="new-agent.php">Add New Agent</a>
+      <a class="dropdown-item" href="agent-login.php">Login</a>
+      <a class="dropdown-item" href="agent-signup.php">Add New Agent</a>
       <a class="dropdown-item" href="spots.php">Agent Manual</a>
     </div>
   </div>

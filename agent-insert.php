@@ -32,7 +32,7 @@ if (isset($_POST)) {
         session_start();
         $_SESSION['errorMsg'] = $errorMsg;
         $_SESSION['invalidated_post'] = $_POST;
-        header("Location: http://localhost/PLDM-Team-2/new-agent.php");
+        header("Location: http://localhost/PLDM-Team-2/agent-signup.php");
         exit;
     }
 
@@ -55,7 +55,6 @@ if (isset($_POST)) {
 <body>
 
 <?php
-echo "<h1>This should not be seen if form is invalidated.</h1>";
 // validation past, collect data from post and insert into database: 1.include insert func, 2.connect database, 3.use $_POST to create obj, 4.pass obj into insert func, 5.print succeed or fail.
 include_once 'php/menu.php';
 include_once 'php/function.php';
@@ -75,7 +74,7 @@ if (insertObjIntoDBTable($agentObj, $travel_experts, $tableName)) {
     echo "<h2>The username you input is already used.";
 }
 // create a button to go back to agent entry page
-echo "<a href='new-agent.php' ><button class='btn btn-outline-secondary ml-4'>Go Back</button></a></h2>";
+echo "<a href='agent-signup.php' ><button class='btn btn-outline-secondary ml-4'>Go Back</button></a></h2>";
 
 include_once('php/footer.php');
 ?>

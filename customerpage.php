@@ -85,7 +85,7 @@ $dta= mysqli_query($dbh,"SELECT * FROM customers");
         include_once('recommend.php');
         $imgarray= array("img/Australia.jpg", "img/Norway.jpg", "img/Canada.jpg", "img/Japan.jpg","img/China.jpg");
         $discrip = array("Travel Australia", "Travel Norway", "Travel Canada","Travel Japan", "Travel China");
-        $nn=$recval;
+        $nn=$var;
         $n=$var2;
 
         //recomend package
