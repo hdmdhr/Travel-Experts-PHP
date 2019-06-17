@@ -11,5 +11,5 @@
 
   unset($_SESSION['loggedin-id-fn']);
 
-  header("Location: http://localhost/PLDM-Team-2/index.php");
+  header("Location: ./index.php");
  ?>

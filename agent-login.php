@@ -14,7 +14,7 @@
 
   if (isset($_SESSION['loggedin-id-fn'])) {
     // if there is already a signed in user, head back to home page with alert message
-    header("Location: http://localhost/PLDM-Team-2/index.php?alert=You're already logged in.");
+    header("Location: ./index.php?alert=You're already logged in.");
     exit;
   }
 
@@ -74,7 +74,7 @@
       } else {
         // if passwords match, save user id and first name in a session, head to *agent entry page (temporary)
         $_SESSION['loggedin-id-fn'] = array('Agent',$agtId,$agtFirstName);
-        header("Location: http://localhost/PLDM-Team-2/agent-signup.php");
+        header("Location: ./agent-signup.php");
       }
 
     }

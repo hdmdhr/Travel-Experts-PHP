@@ -32,7 +32,7 @@ if (isset($_POST)) {
         session_start();
         $_SESSION['errorMsg'] = $errorMsg;
         $_SESSION['invalidated_post'] = $_POST;
-        header("Location: http://localhost/PLDM-Team-2/agent-signup.php");
+        header("Location: ./agent-signup.php");
         exit;
     }
 

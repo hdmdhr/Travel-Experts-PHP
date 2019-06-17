@@ -90,10 +90,10 @@ $dta= mysqli_query($dbh,"SELECT * FROM customers");
 
         //recomend package
 
-        echo "<div class='recomend'><a href='http://localhost/PLDM-Team-2/package.php'><img src='$imgarray[$nn]' width='500px'></a>";
+        echo "<div class='recomend'><a href='./package.php'><img src='$imgarray[$nn]' width='500px'></a>";
         echo "<p class='imgcaption'>$discrip[$nn]</p></div>";
 
-        echo "<div class='recomend'><a href='http://localhost/PLDM-Team-2/package.php'><img src='$imgarray[$n]' width='500px'></a>";
+        echo "<div class='recomend'><a href='./package.php'><img src='$imgarray[$n]' width='500px'></a>";
         echo "<p class='imgcaption'>$discrip[$n]</p></div>";
     ?>
 

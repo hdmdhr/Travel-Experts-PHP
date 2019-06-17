@@ -31,7 +31,7 @@ if (isset($_POST)) {
         session_start();
         $_SESSION['errorMsg'] = $errorMsg;
         $_SESSION['invalidated_post'] = $_POST;
-        header("Location: http://localhost/PLDM-Team-2/customer-signup.php");
+        header("Location: ./customer-signup.php");
         exit;
     }
 

@@ -16,11 +16,11 @@ if(session_id() == '' || !isset($_SESSION)) {
 
 if (!isset($_SESSION['loggedin-id-fn'])) {
   // if there isn't login session, head to agent login page
-  header("Location: http://localhost/PLDM-Team-2/agent-login.php?alert=Please login to continue.");
+  header("Location: ./agent-login.php?alert=Please login to continue.");
 } else {
   if ($_SESSION['loggedin-id-fn'][0]==='Customer') {
     // if there is login session, but user is a customer, head to home page with alert message
-    header("Location: http://localhost/PLDM-Team-2/index.php?alert=You don't have authorization for that.");
+    header("Location: ./index.php?alert=You don't have authorization for that.");
   }
 }
 

@@ -10,10 +10,10 @@
 
 if(session_id() == '' || !isset($_SESSION)) {
   session_start();  // if session isn't start, start it
-  
+
   if (isset($_SESSION['loggedin-id-fn'])) {
     // if there is already a signed in user, head back to home page
-    header("Location: http://localhost/PLDM-Team-2/index.php?alert=You're already logged in.");
+    header("Location: ./index.php?alert=You're already logged in.");
     exit;
   }
 }
@@ -74,7 +74,7 @@ if ($_POST) {
     } else {
       // if passwords match, save user id and first name in a session, head to customer account page
       $_SESSION['loggedin-id-fn'] = array('Customer', $custId, $custFirstName);
-      header("Location: http://localhost/PLDM-Team-2/customerbody.php");
+      header("Location: ./customerbody.php");
     }
 
   }
