@@ -109,7 +109,7 @@
     <div class="row mb-4">
       <div class="col-md-4">
         <label for="userName">Username</label>
-        <input type="text" class="form-control" id="userName" name="CustUserName" placeholder="username" value="<?php if ($oldData):?><?php echo $oldData['userName']; endif ?>" required>
+        <input type="text" class="form-control" id="userName" name="CustUserName" placeholder="username" value="<?php if ($oldData):?><?php echo $oldData['CustUserName']; endif ?>" required>
         <p class="input-hint-hidden">Username used to signin.</p>
         <div class="invalid-feedback">
           Username is required.
